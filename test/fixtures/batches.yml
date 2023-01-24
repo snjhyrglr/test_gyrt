@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  quote_year: 1
+  issuing_office: MyString
+  quote_no: MyString
+  cooperative: one
+  total_gross_prem: 9.99
+  total_coop_sf: 9.99
+  total_net_prem: 9.99
+
+two:
+  quote_year: 1
+  issuing_office: MyString
+  quote_no: MyString
+  cooperative: two
+  total_gross_prem: 9.99
+  total_coop_sf: 9.99
+  total_net_prem: 9.99

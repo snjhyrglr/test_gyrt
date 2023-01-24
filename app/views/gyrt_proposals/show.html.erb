@@ -1,0 +1,111 @@
+
+<%= content_tag :span, "Proposal No. #{@gyrt_proposal.proposal_no}", class: "lead fw-bold" %>
+<br>
+<% if current_user.class.name != "Agent" %>
+  <%= render "proposal_wordings", claim_req: @claim_requirements %>
+<% end %>
+<%= content_tag :span, @gyrt_proposal.cooperative %>
+<% unless @gyrt_proposal.agent_coop_approval_status == true && @gyrt_proposal.underwriting_approval_status == true && @gyrt_proposal.claims_approval_status == true && @gyrt_proposal.actuarial_approval_status == true %>
+  <div class="card mb-2 mt-2 col-8">
+    <div class="card-header">
+      Status
+    </div>
+    <div class="card-body">
+      <% status = [ 
+        ["Actuarial", @gyrt_proposal.actuarial_approval_status, update_actuarial_status_gyrt_proposal_path(@gyrt_proposal), :update_actuarial_status],
+        ["Underwriting", @gyrt_proposal.underwriting_approval_status, update_underwriting_status_gyrt_proposal_path(@gyrt_proposal), :update_underwriting_status],
+        ["Claims", @gyrt_proposal.claims_approval_status, update_claims_status_gyrt_proposal_path(@gyrt_proposal), :update_claims_status],
+        ["Agent/Coop", @gyrt_proposal.agent_coop_approval_status, update_agent_coop_status_gyrt_proposal_path(@gyrt_proposal), :update_agent_coop_status]
+         ] %>
+         <% status.each do |stat| %>
+          <div class="row mb-1">
+            <div class="col-4">
+              <%= content_tag :span, "#{stat[0]} Approval Status:", class: "lead" %>
+            </div>
+
+             <% if stat[1] == true %>
+                <% app_stat = "APPROVED" %>
+                <% text_stat = "success" %>
+                <% btn_stat = "d-none" %>
+                <% %>
+              <% else %>
+                <% app_stat = "PENDING" %>
+                <% stat_text = "secondary" %>
+              <% end %>
+
+            <div class="col-4">
+              <%= content_tag :span, app_stat, class: "lead text-#{text_stat}" %>
+            </div>
+
+            <div class="col-4">
+              <% if can? stat[3], @gyrt_proposal %>                
+                <%= link_to "Approve", stat[2], class: "btn btn-success #{btn_stat}" %>                
+              <% end %>
+            </div>
+
+          </div>
+         <% end %>
+    </div>
+    <div class="card-footer">
+      <%= link_to "Edit", edit_gyrt_proposal_path(@gyrt_proposal), class: "btn btn-outline-success" %>
+      <%= link_to "<i class='fa-solid fa-plus'></i> Add Remarks".html_safe, new_proposal_remark_path(gp: @gyrt_proposal), data: { turbo_frame: "remote_modal" }, class: "btn btn-primary btn-sm" %>
+    </div>
+  </div>
+
+  <table class="table">
+  <thead>
+    <td>ID</td>
+    <td>Remarks</td>
+    <td>Type</td>
+    <td>Status</td>
+    <td></td>
+  </thead>
+  <tbody>
+    <% @gyrt_proposal.proposal_remarks.each do |pr| %>
+      <% color = case pr.status %>
+        <% when "PENDING" then "secondary" %>
+        <% when "APPROVED" then "success" %>
+        <% when "DENIED" then "danger" %>
+      <% end %>
+      <tr class="text-<%= color %>">
+        <td><%= pr.id %></td>
+        <td><%= pr.remark %></td>
+        <td><%= pr.remark_type %></td>
+        <td><%= content_tag :span, pr.status %></td>
+        <td>
+          <% if current_user.class.name == "Employee" && current_user.id == 9 %>
+            <%= link_to '<i class="fa-solid fa-pen-to-square"></i>'.html_safe, edit_proposal_remark_path(pr_id: pr.id), class: "btn btn-success", data: { turbo_frame: "remote_modal" } %>
+            <%= link_to '<i class="fa-solid fa-trash-can"></i>'.html_safe, proposal_remark_path(pr), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<% else %>
+  <div class="p-3 mb-4 bg-light rounded-3 text-center">
+    <%= content_tag :h3, "PROPOSAL ACCEPTED" %>
+    <% if current_user.class.name == "Agent" %>
+      <%= link_to "Generate M.O.A", new_gyrt_agreement_path(cooperative_id: @gyrt_proposal.cooperative,
+      gyrt_proposal_id: @gyrt_proposal,
+      product_name: "GYRT",
+      old_min_age: @gyrt_proposal.old_min_age,
+      old_max_age: @gyrt_proposal.old_max_age,
+      new_min_age: @gyrt_proposal.new_min_age,
+      new_max_age: @gyrt_proposal.new_max_age,
+      prem_rate: @gyrt_proposal.total_premium, 
+      rate_type: "Amount", 
+      coop_sf: @gyrt_proposal.coop_sf,
+      agent_sf: @gyrt_proposal.agent_sf,
+      minimum_participation: @gyrt_proposal.members_count
+      ), data: { turbo_frame: "remote_modal" } %>
+    <% end %>
+    <%= link_to "View PDF", to_pdf_gyrt_proposal_path(@gyrt_proposal, format: :pdf) %>
+  </div>
+<% end %>
+
+
+
+<%#= render 'proposal_wordings', proposal: @gyrt_proposal %>

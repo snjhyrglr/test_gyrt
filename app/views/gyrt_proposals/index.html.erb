@@ -1,0 +1,109 @@
+<%= content_tag :h1, "List of Gyrt Proposals" %>
+
+
+<div class="text-end mb-3">
+  <%= link_to new_gyrt_proposal_path, class: 'btn btn-primary' do %>
+    New Gyrt Proposal
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+
+        <th>ID</th>
+        <th>Cooperative</th>
+        <th>In-charge Person</th>
+        <th>Age Requirement</th>
+        <th>Minimium Participation</th>
+        <th>Status</th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @gyrt_proposals.each do |gyrt_proposal| %>
+        <tr>
+
+          <td><%= gyrt_proposal.id %></td>
+          <td>
+            <%= content_tag :span, gyrt_proposal.cooperative, class: "lead" %> <br>
+            <%= content_tag :span, gyrt_proposal.cooperative.address, class: "badge text-secondary" %>
+          </td>
+          <td>
+            <%= content_tag :span, gyrt_proposal.incharge_name, class: "lead" %><br>
+            <%= content_tag :span, gyrt_proposal.inchage_position, class: "badge bg-primary" %>
+          </td>
+          <td>
+            <b>New</b> <br>
+            <%= content_tag :span, "#{gyrt_proposal.new_min_age} years old to #{gyrt_proposal.new_max_age} years old", class: "badge text-primary" %> <br>
+            <b>Existing</b> <br>
+            <%= content_tag :span, "#{gyrt_proposal.old_min_age} years old to #{gyrt_proposal.old_max_age} years old", class: "badge text-primary" %> <br>
+            <b>Average Age</b> <br>
+            <%= content_tag :span, "#{gyrt_proposal.ave_age} years old", class: "badge text-primary" %>
+          </td>
+          <td><%= "#{gyrt_proposal.members_count} members" %></td>
+        
+          <td>
+            <div class="row">
+              <div class="col-6">
+                Actuarial:
+              </div>
+              <div class="col-6">
+              <% if gyrt_proposal.actuarial_approval_status == true %>
+                <% bg = "success" %>
+              <% else %>
+                <% bg = "danger" %>
+              <% end %>
+              <%= content_tag :span, gyrt_proposal.actuarial_approval_status, class: "badge rounded-pill bg-#{bg}" %> 
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                URD:
+              </div>
+              <div class="col-6">
+              <% if gyrt_proposal.underwriting_approval_status == true %>
+                <% bg = "success" %>
+              <% else %>
+                <% bg = "danger" %>
+              <% end %>
+              <%= content_tag :span, gyrt_proposal.underwriting_approval_status, class: "badge rounded-pill bg-#{bg}" %> 
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                Claims:
+              </div>
+              <div class="col-6">
+              <% if gyrt_proposal.underwriting_approval_status == true %>
+                <% bg = "success" %>
+              <% else %>
+                <% bg = "danger" %>
+              <% end %>
+              <%= content_tag :span, gyrt_proposal.claims_approval_status, class: "badge rounded-pill bg-#{bg}" %> 
+              </div>
+            </div>
+            <%#= content_tag :span, proposal_status, class: "lead text-#{badge_text}" %> 
+            <%#= content_tag :span, next_step, class: "badge text-#{badge_text}" %>
+          </td>
+          
+          
+          <td>
+            <%= link_to 'View', gyrt_proposal, class: 'btn' %>
+            <% if can? :update, gyrt_proposal %>
+              <%= link_to 'Edit', edit_gyrt_proposal_path(gyrt_proposal), class: 'btn' %>
+            <% end %>
+            <% if can? :delete, gyrt_proposal %>
+              <%= link_to 'Delete', gyrt_proposal, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn' %> 
+            <% end %>
+            <%= link_to 'Table', "#", class: "btn btn-outline-success btn-sm" %>
+            <%#= link_to 'View MOA', matrix_path(gyrt_proposal), class: "btn #{btn_class}" %>
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

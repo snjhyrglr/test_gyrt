@@ -1,0 +1,80 @@
+<div class="card mx-auto border-danger mt-5" style="max-width: 50rem;font-family: 'Times New Roman', Times, serif;">
+    <div>
+      <%= image_tag("1cisp.png", size: "200x100", class: "float-start") %>
+      <h2 class="ms-n5 mt-3 mb-3"><b>M</b>emorandum <b>O</b>f <b>A</b>greement</h2>
+    </div>
+    <p class="ms-3 fw-bold fs-5">KNOW ALL BY MEN BY THESE PRESENTS:</p>
+
+    <p class="fs-6 ms-3 me-3" style="text-align: justify;">
+      This AGREEMENT made and executed this <u><%= @gyrt_agreement.created_at.day %></u> day of <u><%= @gyrt_agreement.created_at.strftime("%B").capitalize %></u>, <%= Time.zone.now.year %> in Quezon City by and between:
+    </p>
+
+    <div class="mx-auto" style="max-width: 45rem">
+      <p class="ms-3 me-3 mb-3" style="text-align: justify;">
+        The <b>1 COOPERATIVE INSURANCE SYSTEM OF THE PHILIPPINES LIFE AND GENERAL INSURANCE (1 CISP)</b>, a cooperative insurance organized and existing under the laws of the Philippines, with business address located at No. 80 Malakas St., Barangay Pinyahan, Diliman, Quezon City represented in this act by its President, <b>MR. ROY S. MICLAT</b> and Vice President for Operations (Life Division), <b>MS. JACKELYN P. BALLENA</b> duly authorized, and hereinafter referred to as <b>"1 CISP"</b>;
+      </p>
+
+      <%= content_tag :p, "- and -", class: "text-center" %>
+
+      <p class="ms-3 me-3 mb-3" style="text-align: justify;">
+        The <b><%= @gyrt_agreement.cooperative.name.upcase %></b>, a cooperative organized and existing under the laws of the Philippines, with office located at <u><%= @gyrt_agreement.cooperative.address %></u>, represented in this act by its <%= @gyrt_agreement.gyrt_proposal.inchage_position %>, <b><u><%= @gyrt_agreement.gyrt_proposal.incharge_name.upcase %></u></b> duly authorized, and hereinafter referred to as the <b>"COOPERATIVE"</b>;
+      </p>
+    </div>
+
+    <%= content_tag :p, "- WITNESSETH -", class: "text-center" %>
+
+    <br>
+    <p class="ms-3 me-3 mb-3" style="text-align: justify;">
+      <b>WHEREAS,</b> the COOPERATIVE, aside from providing services under its Articles of Cooperation and By-laws, is also engaged in the extension of mortuary services and benefits to its members;
+    </p>
+
+    <p class="ms-3 me-3 mb-3" style="text-align: justify;">
+      <b>WHEREAS,</b> the cooperative agrees to enroll its members with 1 CISP's <b>GROUP YEARLY RENEWABLE TERM (GYRT)</b> insurance plan, as stipulated in the provision of this Memorandum of Agreement; 
+    </p>
+
+    <p class="ms-3 me-3 mb-3" style="text-align: justify;">
+      <b>NOW, THEREFORE, </b> for and in consideration of the foregoing premises and of the mutual covenants and stipulations hereinafter set forth, the parties hereto agree on the following:
+    </p>
+
+    <%= content_tag :p, "A. COMMITMENT AND UNDERTAING OF COOPERATIVE", class: "fw-bold ms-3 mt-3" %>
+
+    <%= render "matrices/moa_definition_terms", matrix: @gyrt_agreement %>
+
+    <%= content_tag :p, "B. UNDERTAKING AND COMMITMENT OF 1 CISP", class: "fw-bold ms-3 mt-3" %>
+
+    <%= render "matrices/undertaking_commitment", matrix: @gyrt_agreement %>
+
+    <div class="ms-3 mt-1 me-3" style="text-align: justify;">
+      <p class="ms-3 me-3"><b>C. COMMENCEMENT DATE OF INDIVIDUAL INSURANCE. </b>The insurance coverage of a member shall commence on:
+        <ol type="a">
+          <li><u>For Renewal Members:</u> the date of policy anniversary provided that the premium is paid and the member is eligible for coverage.</li>
+          <li><u>For New Members:</u> the "date of inclusion in plan" as reported by the COOPERATIVE provided that it is duly reported to 1 CISP and the corresponding premium is paid subject to eligibility provision of this plan.</li>
+        </ol>
+      </p>
+    </div>
+
+    <div class="ms-3 mt-1 me-3" style="text-align: justify;">
+      <p class="ms-3 me-3"><b>D. AMENDMENT. </b>Any changes to the Memorandum of Agreement shall be agreed upon mutually and formally by the parties hereto.</p>
+    </div>
+
+    <div class="ms-3 mt-1 me-3" style="text-align: justify;">
+      <p class="ms-3 me-3"><b>E. EFFECTIVITY. </b>This agreement shall take effect upon the signing of this Memorandum of Agreement. This Memorandum of Agreement shall remain in force unless amended, modified, revoked or terminated by either party upon written notice to the other party thirty (30) days before the effective date of termination and based on valid and legal grounds.</p>
+    </div>
+
+    <div class="ms-3 mt-1 me-3" style="text-align: justify;">
+      <p class="ms-3 me-3"><b>F. ENTIRE AGREEMENT. </b>Both parties acknowledge that his Agreement constitutes the entire agreement between them and shall completely supersedes all other prior understandings, previous communications, contracts and agreements, either oral or written, between the parties relating to the same subject matter.</p>
+    </div>
+
+    <div class="ms-3 mt-1 me-3" style="text-align: justify;">
+      <p class="ms-3 me-3"><b>G. SEVERABILITY. </b>If any term or condition of this Agreement is declared contrary to law, the other terms and conditions hereof shall not be affected and shall remain fully vaid, subsisting and enforceable. This Agreement effectively supersedes and replaces all other arrangements, negotiations, discussions, contracts and all other agreements between parties.</p>
+    </div>
+
+    <div class="ms-3 mt-1 me-3" style="text-align: justify;">
+      <p class="ms-3 me-3"><b>H. EFFECTS OF TERMINATION OF AGREEMENT. </b>The revocation, cancellation or termination of this Agreement shall not, in anyway, prejudice, diminish or abate any cause of action already accruing to the parties prior to, or at the time of the effectivity of the revocation, cancellation, or termination. Such revocation or termination shall not, in any way, prejudice, diminish or cancel the liability of the COOPERATIVE to remit to 1 CISP hte premium payment already accruing at the time of such revocation, nor shall it diminish, cancel or abrogate the liability of 1 CISP to pay insurance benefits of the members made before or at the time of such revocation or termination.</p>
+    </div>
+
+  </div>
+
+
+
+</div>

@@ -1,0 +1,11 @@
+
+<div class="d-inline">
+  <%= render @gyrt_agreement %>
+
+  <div>
+    <%= link_to "Edit", edit_gyrt_agreement_path(@gyrt_agreement), class: 'btn btn-primary' %> |
+    <%= link_to "Back", gyrt_agreements_path, class: 'btn btn-primary' %>
+
+    <%= button_to "Delete", @gyrt_agreement, method: :delete, class: 'btn btn-danger' %>
+  </div>
+</div>

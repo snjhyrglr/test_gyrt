@@ -1,0 +1,39 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cooperative: one
+  product_name: MyString
+  old_min_age: 1
+  old_max_age: 1
+  new_min_age: 1
+  new_max_age: 1
+  prem_rate: 9.99
+  rate_type: MyString
+  coop_sf: 9.99
+  agent_sf: 9.99
+  gyrt_proposal: one
+  policy_anniv_type: MyString
+  min_enrolleess_count: MyString
+  underwriting_status: false
+  claims_status: false
+  vp_status: false
+  agent_coop_status: false
+
+two:
+  cooperative: two
+  product_name: MyString
+  old_min_age: 1
+  old_max_age: 1
+  new_min_age: 1
+  new_max_age: 1
+  prem_rate: 9.99
+  rate_type: MyString
+  coop_sf: 9.99
+  agent_sf: 9.99
+  gyrt_proposal: two
+  policy_anniv_type: MyString
+  min_enrolleess_count: MyString
+  underwriting_status: false
+  claims_status: false
+  vp_status: false
+  agent_coop_status: false

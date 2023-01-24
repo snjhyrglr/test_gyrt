@@ -1,0 +1,5 @@
+<%= turbo_stream.update @target do %>
+  <%= @geo_brgy.each do |gb| %>
+    <%= content_tag :option, gb.name, value: gb.id  %>
+  <% end %>
+<% end %>

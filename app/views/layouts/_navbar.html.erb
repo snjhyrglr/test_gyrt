@@ -1,0 +1,90 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">GYRT</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <%= content_tag :li, class: "nav-item dropdown" do %>
+          <%= link_to "GYRT", "#", id: "navbarDropdown", role: "button", data: { bs_toggle: "dropdown" }, 'aria-expanded': "false", class: "nav-link dropdown-toggle" %>
+          <%= content_tag :ul, class: "dropdown-menu" do %>
+            <%= content_tag :li, link_to("Proposal", gyrt_proposals_path, class: "dropdown-item") %>
+            <%= content_tag :li, link_to("Proposal Benefits", gyrt_proposal_benefits_path, class: "dropdown-item") %>
+            <%= content_tag :li, link_to("List of MOA", gyrt_agreements_path, class: "dropdown-item") %>
+          <% end %>
+        <% end %>
+        <% if can? :manage, :batch %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Coverages
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            
+            
+              <li><%= link_to "Batch", batches_path, class: "dropdown-item" %></li>
+              <li><%= link_to "Batch Items", batch_items_path, class: "dropdown-item" %></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            
+            </ul>
+          </li>
+        <% end %>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+
+      </ul>
+      <ul class="navbar-nav ms-auto">
+        <% if user_signed_in? %>
+          <%= content_tag :li, class: "nav-item dropdown" do %>
+            <%= link_to (current_user.username if user_signed_in?), "#", id: "navbarDropdown", role: "button", data: { bs_toggle: "dropdown" }, 'aria-expanded': "false", class: "nav-link dropdown-toggle" %>
+            <%= content_tag :ul, class: "dropdown-menu" do %>
+              <%= content_tag :li, link_to("Region", geo_regions_path, class: "dropdown-item") %>
+              <%= content_tag :li, link_to("Province", geo_provinces_path, class: "dropdown-item") %>
+              <%= content_tag :li, link_to("City/Municipality", geo_municipalities_path, class: "dropdown-item") %>
+              <%= content_tag :li, link_to("Barangay", geo_barangays_path, class: "dropdown-item") %>
+              <%= content_tag :li do %>
+                <%= content_tag :hr, "", class: "dropdown-divider" %>
+              <% end %>
+              <%= content_tag :li, link_to("Cooperative", cooperatives_path, class: "dropdown-item") %>
+              <%= content_tag :li, link_to("Coop Types", coop_types_path, class: "dropdown-item") %>
+              <%= content_tag :li, link_to("Coop Categories", coop_categories_path, class: "dropdown-item") %>
+              <%= content_tag :li do %>
+                <%= content_tag :hr, "", class: "dropdown-divider" %>
+              <% end %>
+              <%= content_tag :li, link_to("Loadings", gyrt_loadings_path, class: "dropdown-item") %>
+              <%= content_tag :li, link_to("Rates", gyrt_rates_path, class: "dropdown-item") %>
+              <%= content_tag :li, link_to("Rate Multipliers", gyrt_rate_multipliers_path, class: "dropdown-item") %>
+              <%= content_tag :li do %>
+                <%= content_tag :hr, "", class: "dropdown-divider" %>
+              <% end %>
+              <%= content_tag :li, link_to("Benefits", benefits_path, class: "dropdown-item") %>
+
+              <% if user_signed_in? %>
+                <%= content_tag :hr, "", class: "dropdown-divider" %>
+                <%= content_tag :li, link_to("logout", destroy_session_path(current_user), data: { turbo_method: :delete, turbo_confirm: "R U Sure?" }, class: "dropdown-item") %>
+              <% end %>
+
+            <% end %>
+              
+          <% end %>
+        <% else %>
+          <%= content_tag :li, class: "nav-item dropdown" do %>
+            <%= link_to "Login", "#", id: "navbarDropdown", role: "button", data: { bs_toggle: "dropdown" }, 'aria-expanded': "false", class: "nav-link dropdown-toggle" %>
+            <%= content_tag :ul, class: "dropdown-menu" do %>
+              <%= content_tag :li, link_to("Employee", employee_session_path, class: "dropdown-item") %>
+              <%= content_tag :li, link_to("Agent", agent_session_path, class: "dropdown-item") %>
+            <% end %>
+         <% end %>
+
+        <% end %>
+       
+      </ul>
+      <%= render "search/form" %>
+    </div>
+  </div>
+</nav>

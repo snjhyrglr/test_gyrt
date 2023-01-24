@@ -1,0 +1,29 @@
+
+<%= simple_form_for(@batch) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs mb-3">
+    <div class="row">
+      <%#= f.association :matrix, label_method: :cooperative.name, label: "Cooperative", collection: Matrix.joins(:cooperative).where(status: 1),input_html: { data: { controller: "ts--select" } }, wrapper_html: { class: "col-md-6" } %>
+      <%= f.association :cooperative, input_html: { data: { controller: 'ts--select' }, disabled: :true } %>
+      <%= f.association :cooperative, as: :hidden %>
+      <%= f.input :proposal_id, as: :hidden %>
+      <%= f.input :file, input_html: { class: "form-control" }, as: :file, label: "Member's Data Upload", wrapper_html: { class: "col-md-6" } %>
+    </div>
+    <div class="row">
+      <%#= f.input :quote_year, wrapper_html: { class: "col-md-6" } %>
+      <%#= f.input :issuing_office, wrapper_html: { class: "col-md-6" } %>
+    </div>
+    <div class="row">
+      <%#= f.input :total_gross_prem, wrapper_html: { class: "col-md-4" } %>
+      <%#= f.input :total_coop_sf, wrapper_html: { class: "col-md-4" } %>
+      <%#= f.input :total_net_prem , wrapper_html: { class: "col-md-4" }%>
+    </div>
+  </div>
+
+  <div class="form-actions text-start">
+    <%= link_to "Back", :back, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn-success' %>
+  </div>
+<% end %>

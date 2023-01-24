@@ -1,0 +1,47 @@
+<%= content_tag :h1, "List of Gyrt Coverages" %>
+
+
+<div class="text-end mb-3">
+  <%= link_to new_gyrt_coverage_path, class: 'btn btn-primary' do %>
+    New Gyrt Coverage
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+
+      <th>ID</th>
+        <th>Gyrt Batch</th>
+        <th>Member</th>
+        <th>Age</th>
+        <th>Gross Prem</th>
+        <th>Status</th>
+        <th></th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @gyrt_coverages.each do |gyrt_coverage| %>
+        <tr>
+
+        <td><%= gyrt_coverage.id %></td>
+        <td><%= gyrt_coverage.gyrt_batch %></td>
+        <td><%= gyrt_coverage.member %></td>
+        <td><%= gyrt_coverage.age %></td>
+        <td><%= gyrt_coverage.gross_prem %></td>
+        <td><%= gyrt_coverage.status %></td>
+    
+          <td>
+            <%= link_to 'View', gyrt_coverage, class: 'btn' %>
+            <%= link_to 'Edit', edit_gyrt_coverage_path(gyrt_coverage), class: 'btn' %>
+            <%= link_to 'Delete', gyrt_coverage, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn' %>
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

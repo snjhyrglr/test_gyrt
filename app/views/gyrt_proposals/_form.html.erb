@@ -1,0 +1,55 @@
+
+<%= simple_form_for(@gyrt_proposal) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs mb-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <%= f.association :cooperative, input_html: { data: { controller: "ts--select"} } %>
+        </div>
+        <div class="row">
+          <%= f.input :incharge_name, wrapper_html: { class: "col-md-6" } %>
+          <%= f.input :inchage_position, wrapper_html: { class: "col-md-6" } %>
+        </div>
+        <div class="row">
+          <%= f.input :new_min_age, label: "New Member Minimum Age", 
+          wrapper_html: { class: "col-md-6" } %>
+          <%= f.input :new_max_age, label: "New Member Exit Age", 
+          wrapper_html: { class: "col-md-6" } %>
+        </div>
+        <div class="row">
+          <%= f.input :coop_sf, label: "Coop Service Fee", wrapper_html: { class: "col-md-6" } %>
+          <%= f.input :agent_sf, label: "Agent Service Fee", wrapper_html: { class: "col-md-6" } %>
+        </div>
+          <%#= f.input :pol_anniv, collection: ["Single", "Multiple", "12 Months"], label: "Select Policy Anniversary" %>
+          <%#= f.input :old_min_age %>
+          <%#= f.input :old_max_age %>
+          <%#= f.input :ave_age %>
+          <%#= f.input :members_count %>
+      </div>
+      <div class="card-footer">
+        <div class="row col-4">
+          <%= content_tag :label, "Import Member's Data", class: "form-label" %>
+          <%= f.file_field :file, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+
+    <%= content_tag :h3, "Benefit/s", class: "mt-3" %>
+    <div id="gyrt_options">
+      <%= f.simple_fields_for :gyrt_proposal_benefits do |gpb| %>
+        <%= render 'gyrt_proposal_benefit_fields', f: gpb %>
+      <% end %>
+    </div>
+    <div class="links">
+      <%= link_to_add_association 'Add Benefit', f, :gyrt_proposal_benefits, class: "btn btn-primary btn-sm mt-2" %>
+    </div>
+
+  <div class="form-actions text-end">
+    <%= link_to "Back", gyrt_proposals_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn-success' %>
+  </div>
+<% end %>
+

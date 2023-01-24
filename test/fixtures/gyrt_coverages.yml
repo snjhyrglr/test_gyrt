@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  gyrt_batch: one
+  member: one
+  age: 1
+  gross_prem: 9.99
+  status: MyString
+
+two:
+  gyrt_batch: two
+  member: two
+  age: 1
+  gross_prem: 9.99
+  status: MyString

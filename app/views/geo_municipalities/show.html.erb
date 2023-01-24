@@ -1,0 +1,9 @@
+
+<%= render @geo_municipality %>
+
+<div>
+  <%= link_to "Edit", edit_geo_municipality_path(@geo_municipality), class: 'btn btn-primary' %> |
+  <%= link_to "Back", geo_municipalities_path, class: 'btn btn-primary' %>
+
+  <%= button_to "Delete", @geo_municipality, method: :delete, class: 'btn btn-danger' %>
+</div>

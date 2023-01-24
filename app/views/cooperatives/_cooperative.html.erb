@@ -1,0 +1,56 @@
+<div id="<%= dom_id cooperative %>">
+
+  <%= content_tag :h1, cooperative %>
+
+  <div class="card mt-2">
+    <div class="card-header">
+      <%= content_tag :h3, "Cooperative Details", class: "lead" %>
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <th>Category</th>
+          <th>Status</th>
+          <th>Asset Size</th>
+          <th>CDA Reg. No.</th>
+          <th>Total Asset (millions)</th>
+        </thead>
+        <tbody>
+          <td><%= cooperative.coop_category.name %></td>
+          <td><%= cooperative.status %></td>
+          <td><%= cooperative.asset_size %></td>
+          <td><%= cooperative.registration_no %></td>
+          <td><%= to_currency(cooperative.total_asset * 1000000) %></td>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer">
+    <%= link_to "Edit", edit_cooperative_path(@cooperative), class: 'btn btn-primary' %> |
+    <%= link_to "Delete", @cooperative, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger' %>
+    </div>
+  </div>
+
+  <%= content_tag :hr %>
+
+  <%= content_tag :p, "Cooperative Members:", class: "lead" %>
+
+  <table class="table">
+    <thead>
+      <th>Name</th>
+      <th>Birthday</th>
+      <th>Age</th>
+      <th>Gender</th>
+    </thead>
+    <tbody>
+      <% cooperative.members.each do |cm| %>
+        <tr>
+          <td><%= link_to cm, cm %></td>
+          <td><%= cm.birth_date.strftime("%B %d, %Y") %></td>
+          <td><%= ((Time.zone.now - cm.birth_date.to_time) / 1.year.seconds).floor %></td>
+          <td><%= cm.gender %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>

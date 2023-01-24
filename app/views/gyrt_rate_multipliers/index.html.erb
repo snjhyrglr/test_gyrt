@@ -1,0 +1,45 @@
+<%= content_tag :h1, "List of Gyrt Rate Multipliers" %>
+
+
+<div class="text-end mb-3">
+  <%= link_to new_gyrt_rate_multiplier_path, class: 'btn btn-primary' do %>
+    New 
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+
+      <th>ID</th>
+        <th>Benefit</th>
+        <th>Min Age</th>
+        <th>Max Age</th>
+        <th>Rate</th>
+        <th></th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @gyrt_rate_multipliers.each do |gyrt_rate_multiplier| %>
+        <tr>
+
+        <td><%= gyrt_rate_multiplier.id %></td>
+        <td><%= gyrt_rate_multiplier.benefit %></td>
+        <td><%= gyrt_rate_multiplier.min_count %></td>
+        <td><%= gyrt_rate_multiplier.max_count %></td>
+        <td><%= to_percent(gyrt_rate_multiplier.rate, 2) %></td>
+    
+          <td>
+            <%= link_to 'View', gyrt_rate_multiplier, class: 'btn' %>
+            <%= link_to 'Edit', edit_gyrt_rate_multiplier_path(gyrt_rate_multiplier), class: 'btn' %>
+            <%= link_to 'Delete', gyrt_rate_multiplier, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn' %>
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

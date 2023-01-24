@@ -1,0 +1,9 @@
+
+<%= render @geo_barangay %>
+
+<div>
+  <%= link_to "Edit", edit_geo_barangay_path(@geo_barangay), class: 'btn btn-primary' %> |
+  <%= link_to "Back", geo_barangays_path, class: 'btn btn-primary' %>
+
+  <%= button_to "Delete", @geo_barangay, method: :delete, class: 'btn btn-danger' %>
+</div>

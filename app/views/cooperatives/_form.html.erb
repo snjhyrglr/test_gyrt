@@ -1,0 +1,30 @@
+
+<%= simple_form_for(@cooperative) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs mb-3">
+    <%= f.input :name %>
+    <div data-controller="geography">
+      <%= f.association :geo_region, label: "Region", prompt: "Select Region", input_html: { class: "form-select", id: "region_id", data: { action: "change->geography#search_provinces" } } %>
+
+      <%= f.association :geo_province, label: "Province", prompt: "Select Province", collection: [], input_html: { class: "form-select", id: "province_id", data: { geography_target: "provinceSelect", action: "change->geography#search_municipalities" } } %>
+      
+      <%= f.association :geo_municipality, label: "Municipality", prompt: "Select Municipality", collection: [], input_html: { class: "form-select", id: "muni_id", data: { action: "change->geography#search_barangays", geography_target: "muniSelect" } } %>
+      
+      <%= f.association :geo_barangay, label: "Barangay", prompt: "Select Barangay", collection: [], input_html: { class: "form-select", id: "brgy_id", data: {  geography_target: "brgySelect" } } %>
+    </div>
+    <%= f.input :address %>
+    <%= f.association :coop_category %>
+    <%= f.association :coop_type %>
+    <%= f.input :status %>
+    <%= f.input :asset_size %>
+    <%= f.input :registration_no %>
+    <%= f.input :total_asset %>
+  </div>
+
+  <div class="form-actions text-end">
+    <%= link_to "Back", cooperatives_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn-success' %>
+  </div>
+<% end %>

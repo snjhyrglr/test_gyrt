@@ -1,0 +1,51 @@
+<%= content_tag :h1, "List of Batches" %>
+
+
+<div class="text-end mb-3">
+  <%= link_to "New Batch", new_batch_path, class: 'btn btn-primary', data: { turbo_frame: "remote_modal" } %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+
+      <th>ID</th>
+        <th>Batch Year</th>
+        <th>Issuing Office</th>
+        <th>Batch No</th>
+        <th>Cooperative</th>
+        <th>Total Gross Prem</th>
+        <th>Total Coop Sf</th>
+        <th>Total Agent Sf</th>
+        <th>Total Net Prem</th>
+        <th></th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @batches.each do |batch| %>
+        <tr>
+
+        <td><%= batch.id %></td>
+        <td><%= batch.quote_year %></td>
+        <td><%= batch.issuing_office %></td>
+        <td><%= batch.quote_no %></td>
+        <td><%= batch.cooperative %></td>
+        <td><%= to_currency(batch.total_gross_prem) %></td>
+        <td><%= to_currency(batch.total_coop_sf) %></td>
+        <td><%= to_currency(batch.total_agent_sf) %></td>
+        <td><%= to_currency(batch.total_net_prem) %></td>
+    
+          <td>
+            <%= link_to 'View', batch, class: 'btn' %>
+            <%= link_to 'Edit', edit_batch_path(batch), class: 'btn' %>
+            <%= link_to 'Delete', batch, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn' %>
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

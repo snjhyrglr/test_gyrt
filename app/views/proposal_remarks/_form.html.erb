@@ -1,0 +1,16 @@
+
+<%= simple_form_for @proposal_remark, url: (@proposal_remark.new_record? ? proposal_remarks_path(gp: params[:gp]) : proposal_remark_path(pr_id: params[:pr_id])) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs mb-3">
+    <%= f.input :remark %>
+    <%= f.input :remark_type, collection: ['UND', 'CLAIMS'] %>
+    <%= f.input :status, collection: ['APPROVED', 'DENIED'] %>
+  </div>
+
+  <div class="form-actions text-end">
+    <%= link_to "Back", proposal_remarks_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn-success' %>
+  </div>
+<% end %>

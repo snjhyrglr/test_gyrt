@@ -1,0 +1,24 @@
+
+<%= simple_form_for(@gyrt_batch) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs mb-3">
+    <%= f.association :cooperative, collection: Cooperative.joins(:matrices) %>
+    <%#= f.input :batch_name %>
+    <%#= f.input :total_gross_prem %>
+    <%#= f.input :total_coop_sf %>
+    <%#= f.input :total_net_prem %>
+    <%#= f.input :members_count %>
+    <%#= f.input :denied_count %>
+    <%#= f.input :effective_date %>
+    <%#= f.input :expiry_date %>
+    <%#= f.input :terms %>
+    <%= f.file_field :file, class: "mt-2 mb-2" %>
+  </div>
+
+  <div class="form-actions text-end">
+    <%= link_to "Back", gyrt_batches_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn-success' %>
+  </div>
+<% end %>

@@ -1,0 +1,44 @@
+<%= content_tag :h1, "List of Gyrt Proposal Benefits" %>
+
+
+<div class="text-end mb-3">
+  <%= link_to new_gyrt_proposal_benefit_path, class: 'btn btn-primary' do %>
+    New Gyrt Proposal Benefit
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Benefit</th>
+        <th>Sum Insured</th>
+        <th>Base Prem</th>
+        <th></th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @gyrt_proposal_benefits.group_by(&:gyrt_proposal).each do |gp, gpb| %>
+        <tr>
+          <td colspan=5 class="bg-dark text-white"><%= link_to gp.proposal_no, gp %></td>
+        </tr>
+        <% gpb.each do |ben| %>
+          <tr>
+            <td><%= ben.id %></td>
+            <td><%= ben.benefit.name %></td>
+            <td><%= to_currency(ben.sum_insured)%></td>
+            <td><%= to_currency(ben.base_prem) %></td>  
+            <td>
+              <%= link_to 'View', ben, class: 'btn' %>
+              <%= link_to 'Edit', edit_gyrt_proposal_benefit_path(ben), class: 'btn' %>
+              <%= link_to 'Delete', ben, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn' %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

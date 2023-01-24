@@ -1,0 +1,9 @@
+
+<%= render @batch_item %>
+
+<div>
+  <%= link_to "Edit", edit_batch_item_path(@batch_item), class: 'btn btn-primary' %> |
+  <%= link_to "Back", batch_items_path, class: 'btn btn-primary' %>
+
+  <%= button_to "Delete", @batch_item, method: :delete, class: 'btn btn-danger' %>
+</div>

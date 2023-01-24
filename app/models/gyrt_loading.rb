@@ -1,0 +1,2 @@
+class GyrtLoading < ApplicationRecord
+end

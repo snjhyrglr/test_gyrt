@@ -1,0 +1,9 @@
+
+<%= render @gyrt_batch %>
+
+<div>
+  <%= link_to "Edit", edit_gyrt_batch_path(@gyrt_batch), class: 'btn btn-primary' %> |
+  <%= link_to "Back", gyrt_batches_path, class: 'btn btn-primary' %>
+
+  <%= button_to "Delete", @gyrt_batch, method: :delete, class: 'btn btn-danger' %>
+</div>

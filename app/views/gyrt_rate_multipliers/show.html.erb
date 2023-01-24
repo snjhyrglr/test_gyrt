@@ -1,0 +1,9 @@
+
+<%= render @gyrt_rate_multiplier %>
+
+<div>
+  <%= link_to "Edit", edit_gyrt_rate_multiplier_path(@gyrt_rate_multiplier), class: 'btn btn-primary' %> |
+  <%= link_to "Back", gyrt_rate_multipliers_path, class: 'btn btn-primary' %>
+
+  <%= button_to "Delete", @gyrt_rate_multiplier, method: :delete, class: 'btn btn-danger' %>
+</div>

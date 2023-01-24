@@ -1,0 +1,9 @@
+
+<%= render @geo_province %>
+
+<div>
+  <%= link_to "Edit", edit_geo_province_path(@geo_province), class: 'btn btn-primary' %> |
+  <%= link_to "Back", geo_provinces_path, class: 'btn btn-primary' %>
+
+  <%= button_to "Delete", @geo_province, method: :delete, class: 'btn btn-danger' %>
+</div>

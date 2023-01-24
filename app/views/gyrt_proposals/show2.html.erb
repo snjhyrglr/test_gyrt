@@ -1,0 +1,22 @@
+
+<%= render @gyrt_proposal %>
+
+<div>
+  <%= link_to "Edit", edit_gyrt_proposal_path(@gyrt_proposal), class: 'btn btn-primary' %> |
+  <%= link_to "Back", gyrt_proposals_path, class: 'btn btn-primary' %>
+
+  <%= button_to "Delete", @gyrt_proposal, method: :delete, class: 'btn btn-danger' %>
+</div>
+
+
+<div class="card mt-2 mb-2">
+        <%= form_tag compute_age_gyrt_proposals_path, multipart: true do %>
+        <div class="card-header">
+          Upload Data
+        </div>
+        <div class="card-body">
+          <%= file_field_tag :file %>
+          <%= submit_tag "Compute Age", class: "btn btn-outline-secondary" %>
+        </div>
+        <% end %>
+      </div>

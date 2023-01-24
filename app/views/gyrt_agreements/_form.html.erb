@@ -1,0 +1,38 @@
+
+<%= simple_form_for(@gyrt_agreement) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs mb-3 card">
+    <div class="card-body">
+      <%= f.association :cooperative, input_html: { data: { controller: "ts--select" } } %>
+      <div class="row">
+        <%= f.association :gyrt_proposal, label_method: :proposal_no, wrapper_html: { class: "col-6" } %>
+        <%= f.input :product_name, wrapper_html: { class: "col-6" } %>
+      </div>
+      <div class="row">
+        <%= f.input :old_min_age, wrapper_html: { class: "col-6" } %>
+        <%= f.input :old_max_age, wrapper_html: { class: "col-6" } %>
+      </div>
+      <div class="row">
+        <%= f.input :new_min_age, wrapper_html: { class: "col-6" } %>
+        <%= f.input :new_max_age, wrapper_html: { class: "col-6" } %>
+      </div>
+      <div class="row">
+        <%= f.input :prem_rate, wrapper_html: { class: "col-3" } %>
+        <%= f.input :rate_type, wrapper_html: { class: "col-3" } %>
+        <%= f.input :coop_sf, wrapper_html: { class: "col-3" } %>
+        <%= f.input :agent_sf, wrapper_html: { class: "col-3" } %>
+      </div>
+      <div class="row">
+        <%= f.input :policy_anniv_type, label: "Policy Anniversary", collection: ["Single", "Multiple", "12 Months"], prompt: "Select Policy Anniversary Type", wrapper_html: { class: "col-6" }, input_html: { class: "form-select" } %>
+        <%= f.input :min_enrollees_count, wrapper_html: { class: "col-6" } %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions text-end">
+    <%= link_to "Back", gyrt_agreements_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn-success' %>
+  </div>
+<% end %>

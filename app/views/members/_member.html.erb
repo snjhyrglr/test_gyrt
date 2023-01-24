@@ -1,0 +1,34 @@
+<div id="<%= dom_id member %>">
+
+  <div class="card mt-3">
+    <div class="card-header">
+      <%= content_tag :h3, "Member Details"  %>
+    </div>
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item fw-bold">Name: <%= member %></li>
+        <li class="list-group-item">Birth day: <%= member.birth_date.strftime("%B %d, %Y") %></li>
+        <li class="list-group-item">Age: <%= ((Time.zone.now - member.birth_date.to_time) / 1.year.seconds).floor %></li>
+        <li class="list-group-item">Gender: <%= member.gender %></li>
+      </ul>
+      <hr>
+      <table class="table">
+        <thead>
+          <th>Cooperative(s)</th>
+        </thead>
+        <tbody>
+          <% member.cooperatives.each do |mc| %>
+            <tr>
+              <td> <%= link_to mc.name, mc %> </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer text-end">
+      <%= link_to "Edit", edit_member_path(@member), class: 'btn btn-primary' %>
+      <%= link_to "Delete", @member, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger' %>
+    </div>
+  </div>
+
+</div>

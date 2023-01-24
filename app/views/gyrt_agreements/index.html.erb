@@ -1,0 +1,72 @@
+<%= content_tag :h1, "List of M.O.A's" %>
+
+
+<div class="text-end mb-3">
+  <%= link_to new_gyrt_agreement_path, class: 'btn btn-primary' do %>
+    Create MOA
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+
+      <th>ID</th>
+        <th>Cooperative</th>
+        <th>Product Name</th>
+        <th>Age Requirements</th>
+        <th>Premium</th>
+        <th>Gyrt Proposal</th>
+        <th>Policy Anniv Type</th>
+        <th>Min Enrollees Count</th>
+        <th>Underwriting Status</th>
+        <th>Claims Status</th>
+        <th>Vp Status</th>
+        <th>Agent Coop Status</th>
+        <th></th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @gyrt_agreements.each do |gyrt_agreement| %>
+        <tr>
+
+        <td><%= gyrt_agreement.id %></td>
+        <td><%= gyrt_agreement.cooperative %></td>
+        <td><%= gyrt_agreement.product_name %></td>
+        <td>
+          <%= content_tag :span, "New Members", class: "span" %>
+          <%= content_tag :span, "#{gyrt_agreement.old_min_age} to #{gyrt_agreement.old_max_age} years old", class: "badge text-dark" %>
+          <%= content_tag :span, "Old Members", class: "span" %>
+          <%= content_tag :span, "#{gyrt_agreement.new_min_age} to #{gyrt_agreement.new_max_age} years old", class: "badge text-dark" %>
+        </td>
+        <td>
+          <%= content_tag :span, "Premium Rate", class: "span" %> 
+          <%= content_tag :span, to_currency(gyrt_agreement.prem_rate), class: "badge text-success" %>    
+          <%= content_tag :span, "Service Fee", class: "span" %> 
+          <%= content_tag :span, "Coop: ", class: "badge text-dark" %>
+          <%= content_tag :span, to_percent(gyrt_agreement.coop_sf * 100, 0), class: "badge text-success" %>
+          <%= content_tag :span, "Agent: ", class: "badge text-dark" %>
+          <%= content_tag :span, to_percent(gyrt_agreement.agent_sf * 100, 0), class: "badge text-success" %>
+        </td>
+        <td><%= link_to gyrt_agreement.gyrt_proposal.proposal_no, gyrt_agreement.gyrt_proposal.proposal_no, class: "link-success" %></td>
+        <td><%= gyrt_agreement.policy_anniv_type %></td>
+        <td><%= gyrt_agreement.min_enrollees_count %></td>
+        <td><%= gyrt_agreement.underwriting_status %></td>
+        <td><%= gyrt_agreement.claims_status %></td>
+        <td><%= gyrt_agreement.vp_status %></td>
+        <td><%= gyrt_agreement.agent_coop_status %></td>
+    
+          <td>
+            <%= link_to 'View', gyrt_agreement, class: 'btn' %>
+            <%= link_to 'Edit', edit_gyrt_agreement_path(gyrt_agreement), class: 'btn' %>
+            <%= link_to 'Delete', gyrt_agreement, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn' %>
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

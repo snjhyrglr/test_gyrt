@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  gyrt_proposal: one
+  gyrt_rate: one
+  cooperative: one
+  count: 1
+  qx: 9.99
+
+two:
+  gyrt_proposal: two
+  gyrt_rate: two
+  cooperative: two
+  count: 1
+  qx: 9.99

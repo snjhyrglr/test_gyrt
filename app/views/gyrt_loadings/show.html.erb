@@ -1,0 +1,9 @@
+
+<%= render @gyrt_loading %>
+
+<div>
+  <%= link_to "Edit", edit_gyrt_loading_path(@gyrt_loading), class: 'btn btn-primary' %> |
+  <%= link_to "Back", gyrt_loadings_path, class: 'btn btn-primary' %>
+
+  <%= button_to "Delete", @gyrt_loading, method: :delete, class: 'btn btn-danger' %>
+</div>

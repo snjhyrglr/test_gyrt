@@ -1,0 +1,174 @@
+<div id="<%= dom_id gyrt_agreement %>">
+
+  <div class="card mb-3 mt-3 w-75">
+    <div class="card-header">
+      <%= content_tag :span, gyrt_agreement.cooperative.name, class: "fw-bold lead" %>
+    </div>
+    <div class="card-body">
+      <p>
+        <strong>Product name:</strong>
+        <%= gyrt_agreement.product_name %>
+      </p>
+      
+      <div>
+        <%= content_tag :span, "Age requirements", class: "fw-bold lead" %>
+        <br>
+        <% old_ages = [
+          [gyrt_agreement.old_min_age, "Entry"], [gyrt_agreement.old_max_age, "Exit"]
+          ] %>
+        <% new_ages = [
+          [gyrt_agreement.new_min_age, "Entry"], [gyrt_agreement.new_max_age, 'Exit']
+          ] %>
+
+        <%= content_tag :span, "Old/Existing Members: " %>
+        <br>
+        <% old_ages.each do |old| %>
+          <div class="row text-center mb-1">
+            <div class="col-3">
+              <%= content_tag :span, "#{old[1]} age" %>
+            </div>
+            <div class="col-2">
+              :
+            </div>
+            <div class="col-2">
+              <%= content_tag :span, "#{old[0]} years old", class: "fw-bold" %>
+            </div>
+          </div>
+        <% end %>
+
+        <%= content_tag :span, "New Members: " %>
+        <br>
+        <% new_ages.each do |new| %>
+          <div class="row text-center mb-1">
+            <div class="col-3">
+              <%= content_tag :span, "#{new[1]} age" %>
+            </div>
+            <div class="col-2">
+              :
+            </div>
+            <div class="col-2">
+              <%= content_tag :span, "#{new[0]} years old", class: "fw-bold" %>
+            </div>
+          </div>
+        <% end %>
+
+      </div>
+
+      <div>
+        <%= content_tag :span, "Rate Details", class: "fw-bold lead" %>
+        <br>
+        <div class="row text-center">
+          <div class="col-3">
+            <%= content_tag :span, "Premium rate" %>
+          </div>
+          <div class="col-2">
+            :
+          </div>
+          <div class="col-2">
+            <%= content_tag :span, to_currency(gyrt_agreement.prem_rate), class: "fw-bold" %>
+          </div>
+        </div>
+        <div class="row text-center">
+          <div class="col-3">
+            <%= content_tag :span, "Coop Service Fee (%)" %>
+          </div>
+          <div class="col-2">
+            :
+          </div>
+          <div class="col-2">
+            <%= content_tag :span, "#{gyrt_agreement.coop_sf * 100}%", class: "fw-bold" %>
+          </div>
+        </div>
+        <div class="row text-center">
+          <div class="col-3">
+            <%= content_tag :span, "Agent Service Fee (%)" %>
+          </div>
+           <div class="col-2">
+            :
+          </div>
+          <div class="col-2">
+            <%= content_tag :span, "#{gyrt_agreement.agent_sf * 100}%", class: "fw-bold" %>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <%= content_tag :span, "Proposal", class: "fw-bold lead" %>
+        <br>
+        <%= link_to "Proposal No.: #{gyrt_agreement.gyrt_proposal.proposal_no}", to_pdf_gyrt_proposal_path(gyrt_agreement.gyrt_proposal_id, format: :pdf), class: "link-success lead" %>
+        <br>
+        <div class="row text-center">
+          <div class="col-3">
+            <%= content_tag :span, "Policy Anniversary Type" %>
+          </div>
+           <div class="col-2">
+            :
+          </div>
+          <div class="col-2">
+            <%= content_tag :span, gyrt_agreement.policy_anniv_type, class: "fw-bold" %>
+          </div>
+        </div>
+        <div class="row text-center">
+          <div class="col-3">
+            <%= content_tag :span, "Minimum Enrollees Participation" %>
+          </div>
+           <div class="col-2">
+            :
+          </div>
+          <div class="col-2">
+            <%= content_tag :span, "#{gyrt_agreement.min_enrollees_count} members", class: "fw-bold" %>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <%= content_tag :span, "For Approval Status", class: "fw-bold lead" %>
+        <% for_approve = [
+          ["Underwriting", gyrt_agreement.underwriting_status, update_und_gyrt_agreement_path(gyrt_agreement), :update_und],
+          ["Claims", gyrt_agreement.claims_status, update_claims_gyrt_agreement_path(gyrt_agreement), :update_claims],
+          ["Agent/Coop", gyrt_agreement.agent_coop_status, update_agent_coop_gyrt_agreement_path(gyrt_agreement), :update_agent_coop],
+          ["VP for Life Ops", gyrt_agreement.vp_status, update_vp_gyrt_agreement_path(gyrt_agreement), :update_vp]
+        ] %>
+
+        <% for_approve.each do |fa| %>
+          <% if fa[1] == true %>
+            <% btn_val = "d-none" %>
+            <% stat_val = "APPROVED" %>
+            <% style_val = "success" %>
+          <% else %>
+            <% stat_val = "PENDING" %>
+            <% style_val = "secondary" %>
+          <% end %>
+          <div class="row text-center">
+            <div class="col-3">
+              <%= content_tag :span, fa[0] %>
+            </div>
+            <div class="col-2">
+            :
+            </div>
+            <div class="col-2">
+              <%= content_tag :span, stat_val, class: "badge text-#{style_val}" %>
+            </div>
+            <div class="col-2">
+              <% if can? fa[3], gyrt_agreement %>
+                <%= button_to "Approve", fa[2], class: "btn btn-sm btn-secondary mb-1 #{btn_val}", data: { turbo_confirm: "Are you sure?" }, method: :get %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      
+    </div>
+    <div class="card-footer">
+      <%= link_to "View PDF", to_pdf_gyrt_agreement_path(@gyrt_agreement, format: :pdf), class: "btn btn-warning btn-sm" %>
+      <% if gyrt_agreement.underwriting_status == true && gyrt_agreement.claims_status == true && gyrt_agreement.agent_coop_status == true && gyrt_agreement.vp_status == true %>
+        <%= link_to "Add Members", new_batch_path(coop: gyrt_agreement.cooperative, proposal_id: gyrt_agreement.gyrt_proposal.id), class: "btn btn-secondary btn-sm", data: { turbo_frame: "remote_modal" } %>
+        <%= link_to "Add Coop Logo", "#", class: "btn btn-secondary btn-sm" %>
+      <% end %>
+      <%= link_to "Upload Masterlist of Members", batch_form_members_path(coop: gyrt_agreement.cooperative, moa: gyrt_agreement), class: "btn btn-outline-success btn-sm", data: { turbo_frame: "remote_modal" } %>
+    </div>
+
+  </div>
+  
+

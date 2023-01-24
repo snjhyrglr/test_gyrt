@@ -1,0 +1,12 @@
+<%= form_tag batch_import_members_path(moa: params[:moa]), multipart: true do %>
+  <div class="form-inputs mb-3">
+    <%= label_tag "Name of Coop" %>
+     <br>
+    <%= text_field_tag "coop_name", @cooperative, size: 85, disabled: true %>
+    <%= text_field_tag "coop_id", @cooperative.id, hidden: true %>
+     <br>
+    <%= label_tag "Locate the file" %>
+    <%= file_field_tag :file, class: 'form-control' %>
+  </div>
+  <%= submit_tag "Import", class: "btn btn-outline-secondary" %>  
+<% end %>

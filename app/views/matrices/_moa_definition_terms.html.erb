@@ -1,0 +1,184 @@
+<div class="ms-5 mb-3">
+  <p><b>1.<u class="ms-3">Definition of Terms</u></b></p>
+
+  <div class="ms-4 me-3">
+    <p style="text-align: justify;">
+      <b>Enrollee</b> <i> - the "Member" to be insured under this. plan</i>
+    </p>
+    <p style="text-align: justify;">
+      <b>New Enrollee</b> <i> - the "Member" to be insured who did not yet surpass the one-year contestability period.</i>
+    </p>
+    <p style="text-align: justify;">
+      <b>Renewal Enrollee</b> <i> - the "Member" to be insured who already surpassed the one-year contestability period.</i>
+    </p>
+    <p style="text-align: justify;">
+      <b>Reinstatement Enrollee</b> <i> - the "Member" to be insured whose last coverage has lapsed for more than 24 months prior to reinstatement date of coverage.</i>
+    </p>
+    <p style="text-align: justify;">
+      <b>Medical Information Database (MID)</b> <i> - this is where life insurance companies, as part of due diligence in their risk assessment process, without need of obtaining the data subjects concerned, shall share among themselves all medical information gathered from declarations made on company forms; those secured from medical examinations conducted on the insured applicant or policyholder; or those sourced from records of medical service providers from which the insured applicant or policyholder may have sought care. Such information gathered shall be compiled in a database, hereinafter referred to as the Medical Information Database (MID). All life insurance companies are mandated to upload to the MID all pertinent medical information of all their existing policyholders and insured.</i>
+    </p>
+    <p style="text-align: justify;">
+      <b>Preexisting condition</b> <i> - Pre-existing condition, is any medical condition, illness, injury or any related condition(s) which signs and symptoms were present and any cautios individual would have sought consult with a medical professional in the last twelve (12) months prior to insurance application. This includes terminal illness, dreaded and chronic diseases.</i>
+    </p>
+  </div>
+
+  <p class="me-3" style="text-align: justify;">
+  <b>2.<u class="ms-3">Minimum Participation.</u></b> The COOPERATIVE shall enroll at least a minimum of <b><%= matrix.min_enrollees_count.humanize %> (<%= matrix.min_enrollees_count %>)</b> initial eligible members to implement this group insurance plan. 1 CISP shall re-price the premium rate in case the number of enrollees falls below <%= matrix.min_enrollees_count.humanize %> (<%= matrix.min_enrollees_count %>) 
+  </p>
+
+  <p class="me-3" style="text-align: justify;">
+  <b>3.<u class="ms-3">Compliance to Underwriting Requirements.</u></b> The COOPERATIVE is required to submit a Summary Report of Members to be Insured with complete data such as full name and date of birth, name of beneficiary, and relationship.
+  </p>
+  
+  <p class="me-3" style="text-align: justify;">
+  The COOPERATIVE shall see to it that all NEW & REINSTATEMENT ENROLLEES shall accomplish the "GYRT MEMBER'S ENROLLMENT FORM" completely and accurately including health declaration indicated thereon and comply with the requirements set forth hereof 
+  </p>
+
+  <p class="me-3" style="text-align: justify;">
+  The coverage of all "new" & "reinstatement" ENROLLEE without "enrollment form", "health declaration", and "date of birth" shall be automatically postponed by the Underwriting Department of 1 CISP and consequently, the premium shall be refunded within <b>fifteen (15) calendar days</b> from the date of notice.
+  </p>
+
+  <div class="ms-5 me-3" style="text-align: justify;">
+    <p><b>a. Eligibility Requirements</b></p>
+    <table>
+      <tr>
+        <pre class="ms-5">Entry Age for New Members:         <b><%= matrix.new_min_age %> - <%= matrix.new_max_age %></b> years old </pre>
+      </tr>
+      <tr>
+        <pre class="ms-5">Exit Age:          <b><%= matrix.new_max_age %></b> years old </pre>
+      </tr>
+    </table>
+              
+
+    <div class="ms-3" style="text-align: justify;">
+      <p><b>The proposed insured</b></p>
+      <p>
+        1. Shall be a bona fide member of the Cooperative;
+        <ol type="a">
+          <li>Regular member based in the Philippines</li>
+          <li>Associate member based in the Philippines</li>
+        </ol>
+      </p>
+      <p>
+        2. Shall be in good health and not aware of any impairment in health or physical condition.
+      </p>
+      <p>
+        3. Shall be able to perform the following Activities of Daily Living (ADLs), namely:
+          <ol type="a">
+            <li>Eating/feeding;</li>
+            <li>Toileting;</li>
+            <li>Mobility/transferring;</li>
+            <li>Bathing; and</li>
+            <li>Dressing.</li>
+          </ol>
+      </p>
+    </div>
+
+    <p><b>b. Summary Report.</b> The Cooperative shall submit a Summary Report of all Proposed Insured-members with full name, date of birth, name of beneficiary, and relationship duly signed by the Manager or Authorized Signatory of the Cooperative. The Cooperative shall forward the softcopy of the Summary Report to  1 CISP's Underwriting for database purposes. The Cooperative shall email it to <a href="#">cispunderwriting@gmail.com</a>/<a href="#">lifeunderwriting@1cisp.coop</a></p>
+
+    <p><b>c. GYRT Member's Enrollment Form.</b> The "NEW" and "REINSTATEMENT" enrollee is required to accomplish the GYRT Member's Enrollment. The enrollee shall complete his or her basic personal information such as <i>full name, date of birth, occupation, place of work, height, weight, name of beneficiary/ies, and answers in health declaration</i>.</p>
+
+    <p>All questions in the enrollment form shall be answered fully and accurately in order to avoid postponement. All answers in the health declaration shall be subjected to evaluation of 1 CISP. 1 CISP reserves the right to require additional medical questionnaire in relation to member's health declaration. 1 CISP also reserves the right to "deny" coverage if an enrollee is found to be a substantial risk to 1 CISP. The enrollment form shall be signed by the member with date. Signing by proxy or attorney-in-fact is not acceptable. (Refer to the attached sample form).</p>
+
+    <p><b>d. Premium.</b> Premium is based on the agreed rate by 1 CISP and the Cooperative.</p>
+
+    <table class="table text-center">
+      <thead>
+        <th>Annual Premium/Member</th>
+      </thead>
+      <tbody>
+        <td> <%= to_currency(matrix.prem_rate) %> </td>
+      </tbody>
+    </table>
+
+    <p>The Premium for "new" members shall be pro-rated based on the number of days remaining before the group policy anniversary date. The rates are as </p>
+
+    <table class="table text-center">
+      <thead>
+        <th>No of Month/s Covered</th>
+        <th>Premium Due</th>
+      </thead>
+      <tbody>
+        <% (1..12).each do |mon| %>
+          <tr>
+            <% prem_rate = (matrix.prem_rate / 12) %>
+            <td> <%= mon %> </td>
+            <td> <%= to_currency(prem_rate * mon) %> </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <p>The abovementioned schedule of premium is guaranteed until the renewal date and shall be changed by 1 CISP on such renewal date and on any renewal date thereafter.</p>
+    
+    <p>For the purpose of premium computation, <b>a fraction of a month is considered as one (1) full month</b>.</p>
+
+    <p><b>e. Policy Anniversary Type and Date: </b> (<%= matrix.policy_anniv_type %>) - Every XX of ______ </p>
+  </div>
+
+  <p class="me-3" style="text-align: justify;">
+  <b>4.<u class="ms-3">Grace Period.</u></b> A grace period of thirty one (31) days from due date of the premium payment is allowed, after which if the premium is not paid, this Group POlicy shall automatically terminate. If the insured member died during the said grace period, the unpaid premium shall be deducted from the benefit proceeds.
+  </p>
+
+  <p class="me-3" style="text-align: justify;">
+  <b>5.<u class="ms-3">Reinstatement.</u></b> This Group Policy shall be reinstated any time after it has beed terminated provided the conditions set by 1 CISP at the time of reinstatement are met and the appropriate premiums are paid. Only losses that occur after the effective date of reinstatement shall be covered.
+  </p>
+
+  <p class="me-3" style="text-align: justify;">
+    If the member whose insurance is terminated in accordance with the termination provision of this Group Policy again becomes entitled to participate for insurance hereunder, such individual shall again become insured under this Group Policy by submitting, without expense to 1 CISP, an evidence of insurability acceptable to it. Insurance shall take effect once the evidence is approved by 1 CISP and the corresponding premium is paid.
+  </p>
+
+  <p class="me-3" style="text-align: justify;">
+  <b>6.<u class="ms-3">Compliance to Claim requirements.</u></b> All claims shall be filed together with reasonable proofs of death and all supporting information. Notice of claim shall be submitted to 1 CISP within <b>thirty (30) days</b> and proof of loss within ninety (90) days from the date of death, except when it can be shown that failure to submit the notice and proof within such time si due to valid reason.
+  </p>
+
+  <p class="me-3" style="text-align: justify;">
+    1 CISP, upon receipt of a notice of claim, shall furnish to the Claimant such forms as are usually required by 1 CISP for filing proofs of loss. All certificates, information and evidence, other than usual forms, which 1 CISP shall reasonably require in support of a claim. <b>1 CISP has the right to require additional requirements on a case to case basis</b>.
+  </p>
+
+  <p class="me-3" style="text-align: justify;">
+    Basic requirements on claiming the <b>Life Insurance Benefit.</b>
+    <ul>
+      <li>Original Certified true copy of Death Certificate</li>
+      <li>Claimant's Statement (Notarization of Claimant's Statemenet can be waived provided that a Proof of Relationship will be submitted such as "Birth Certificate" or "Marriage Certificate". 1 CISP will recognize Claimant's Statement Form signed by the cooperative's General Manager / President / Chairman)</li>
+      <li>Attending Physician's Statement (The <b>Attending Physician Statement (APS)</b> shall be waived if the coverage of the deceased member is "already incontestable" and died at home.")</li>
+      <li>Birth Certificate or Marriage Certificate of the beneficiary</li>
+      <li>Affidavit of Two Disinterested Persons (if necessary)</li>
+      <li>CENOMAR (of both insured and claimant) and Barangay Certificate (indicating their years of living together), if claimant is a common-law-partner</li>
+      <li>Police Report of Incident Report or Barangay Certificate (with signature/s) (due to accident)</li>
+    </ul>
+  </p>
+
+  <p class="me-3" style="text-align: justify;">
+  <b>7.<u class="ms-3">Checklist of Forms</u></b>
+  </p>
+
+  <p class="me-3" style="text-align: justify;">
+    <ol type="A">
+      <li>
+        <b>Underwriting</b>
+        <ol type=1>
+          <li>Summary Report Form</li>
+          <li>GYRT Member's Enrollment Form</li>
+        </ol>
+      </li>
+      <li>
+        <b>Claims</b>
+        <ol type=1>
+          <li>Claimant's Statement Form</li>
+          <li>Attending Physician's Statement Form</li>
+          <li>Release of Claim Form</li>
+        </ol>
+      </li>
+    </ol>
+  </p>
+
+  <p class="me-3" style="text-align: justify;">
+  <b>8.<u class="ms-3">Open Line Communication with 1 CISP.</u></b> The COOPERATIVE shall maintain a close dialogue and communication with 1 CISP on all matters relative to the foregoing with the end in view that services extended shall always be updated, efficient and responsive to the needs of their organization as well as its members.
+  </p>
+
+  <p class="me-3" style="text-align: justify;">
+  <b>9.<u class="ms-3">Compliance in Good Faith.</u></b> The COOPERATIVE pledges its faithful compliance in good faith of the foregoing agreement and commitment.
+  </p>
+  
+</div>

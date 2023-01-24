@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cooperative: one
+  last_name: MyString
+  first_name: MyString
+  middle_name: MyString
+  birth_date: 2022-10-20
+  gender: MyString
+
+two:
+  cooperative: two
+  last_name: MyString
+  first_name: MyString
+  middle_name: MyString
+  birth_date: 2022-10-20
+  gender: MyString

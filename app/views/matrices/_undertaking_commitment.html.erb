@@ -1,0 +1,116 @@
+<div class="ms-5 mb-3">
+
+  <p class="me-3" style="text-align: justify;">
+    <b>1.<u class="ms-3">Benefit Provision.</u></b> 
+  </p>
+  <table class="table text-center">
+    <thead>
+      <th>Coverage</th>
+      <th>Sum Insured</th>
+    </thead>
+    <tbody>
+      <% matrix.gyrt_proposal.gyrt_proposal_benefits.each do |mat| %>
+        <tr>
+          <td> <%= mat.benefit.name %> </td>
+          <td> <%= to_currency(mat.sum_insured) %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <p class="me-3" style="text-align: justify;">
+    <b>2.<u class="ms-3">Payment Benefit.</u></b> In case of death of an insured during the effectivity of the coverage, the benefit shall be paid by 1 CISP to the beneficiary thru the COOPERATIVE based on the schedule of benefit.
+  </p>
+
+  <p class="me-3" style="text-align: justify;">
+    <b>3.<u class="ms-3">Contestability Period for New & Reinstatement Members.</u></b> The coverage of NEW and REINSTATEMENT members as of the Effective Date of or Date of Reinstatement of Coverage shall be incontestable after it has been in force for a period of <b>one (1) year</b>, except for
+
+    <ol type="a">
+      <li>non-payment of premium</li>
+      <li>
+        material misrepresentation
+        <ul>
+          <li>misstatement of age (ineligible at the time of application)</li>
+        </ul>
+      </li>
+      <br>
+      <li>
+        concealment of known material facts whether intentional of unintentional
+        <ul>
+          <li>pre-existing condition, is any medical condition, illness, injury or any related condition(s) which signs and symptoms were present and any cautious individual would have sought consult with a medical professional in the last twelve (12) months prior to enrollment in this plan.</li>
+        </ul>
+        <br>
+        <ol type=1>
+          <li>Dreaded Diseases</li>
+          <li>Terminal Diseases</li>
+          <li>Chronic Diseases</li>
+        </ol>
+      </li>
+      <br>
+      <li>or any grounds recognized by law and jurisprudence</li>
+    </ol>
+  </p>
+
+  <p class="me-3" style="text-align: justify;">
+    In case a NEW or REINSTATEMENT member died within one (1) year from the date of his or her first coverage or last reinstatement date under this plan and cause of death is due to a <i>pre-existing condition</i>, 1 CISP shall not pay the benefit and thus, premium shall be refunded to the cooperative. The following causes of death are examples of pre-existing conditions but not limited to:
+    <ul>
+      <li>
+        Cancer;
+        <ul>
+          <li>Carcinoma in situ including of the cervix</li>
+          <li>Ductal Carcinoma in situ of the breast</li>
+          <li>Papillary Carcinoma of the bladder and Stage 1 Prostate Cancer</li>
+          <li>All skin cancers except malignant melanoma</li>
+          <li>Stage 1 Hodgkin disease</li>
+          <li>Tumors manifesting as complications of Acquired Immune Deficiency Syndrome</li>
+        </ul>
+      </li>
+      <li>Advance heart illness</li>
+      <li>Chronic Heart and Kidney diseases</li>
+      <li>Tuberculosis</li>
+      <li>Fulminant viral hepatitis</li>
+      <li>Major organ transplant</li>
+      <br>
+      The actual undergoing of a transplang as a recipient of one of the following human organs:
+        <ol type="a">
+          <li>Kidney</li>
+          <li>Lung(s)</li>
+          <li>Liver</li>
+          <li>Heart</li>
+          <li>Bone marrow</li>
+        </ol>
+      <li>Paralysis / Paraplegia</li>
+      <li>Multiple Sclerosis</li>
+      <li>Primary Pulmonary Arterial Hypertension</li>
+      <li>Heart Valve Replacement</li>
+      <li>Surgery to Aorta</li>
+      <li>Coma</li>
+      <li>Chronic Liver Disease</li>
+      <li>Chronic Lung Disease</li>
+      <li>Aplastic Anaemia</li>
+      <li>Brain Surgery</li>
+      <li>Bacterial Meningitis</li>
+    </ul>
+  </p>
+
+  <p class="me-3" style="text-align: justify;">
+    <b>4.<u class="ms-3">Service Incentive.</u></b> The COOPERATIVE shall be entitled to a service incentive equivalent to <b><u> <%= to_percent(matrix.coop_sf, 2) %> </u></b> of the gross premium remittance for its administrative work such as preparation of enrollment of its members, compliance of underwriting requirements, summary reports, and collection of premiums.
+  </p>
+
+  <p class="me-3" style="text-align: justify;">
+    <b>5.<u class="ms-3">Exclusions.</u></b> 1 CISP shall not pay death benefit if the member:
+  </p>
+  <ol type="a">
+    <li>commits suicide within one (1) year from the effective date of the Group Policy or from the date of reinstatement; and</li>
+    <li>engage in military (ground, naval or aviation) services</li>
+  </ol>
+
+  <p class="me-3" style="text-align: justify;">
+    <b>6.<u class="ms-3">Experience Review.</u></b> 1 CISP shall conduct a periodic review of the benefits paid to the COOPERATIVE in relation to the premium rate. The 1 CISP shall reserves the right to unilaterally adjust the coverage and/or gross premium for the plan as shall be warranted by actual claims experience. Any adjustment in the premium rate shall be effective only upon the signing of a supplemental agreement which shall form an integral part of this agreement.
+  </p>
+
+  <p class="me-3" style="text-align: justify;">
+    <b>7.<u class="ms-3">Compliance in Good Faith.</u></b> 1 CISP pledges its faithful compliance in good faith of the foregoing agreement and commitment.
+  </p>
+
+</div>

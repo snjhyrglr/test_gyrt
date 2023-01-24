@@ -1,0 +1,24 @@
+
+<%= simple_form_for(@batch_item) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs mb-3">
+    <%= f.association :batch %>
+    <%= f.association :cooperative %>
+    <%= f.association :member %>
+    <%= f.input :age %>
+    <%= f.input :sum_insured %>
+    <%= f.input :effective_date %>
+    <%= f.input :expiry_date %>
+    <%= f.input :terms %>
+    <%= f.input :gross_prem %>
+    <%#= f.input :coop_sf %>
+    <%#= f.input :net_prem %>
+  </div>
+
+  <div class="form-actions text-end">
+    <%= link_to "Back", batch_items_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn-success' %>
+  </div>
+<% end %>

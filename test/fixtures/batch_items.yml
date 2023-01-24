@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  batch: one
+  cooperative: one
+  member: one
+  age: 1
+  sum_insured: 9.99
+  effective_date: 2022-11-09
+  expiry_date: 2022-11-09
+  terms: 1
+  gross_prem: 9.99
+  coop_sf: 9.99
+  net_prem: 9.99
+
+two:
+  batch: two
+  cooperative: two
+  member: two
+  age: 1
+  sum_insured: 9.99
+  effective_date: 2022-11-09
+  expiry_date: 2022-11-09
+  terms: 1
+  gross_prem: 9.99
+  coop_sf: 9.99
+  net_prem: 9.99

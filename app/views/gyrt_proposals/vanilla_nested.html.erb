@@ -1,0 +1,25 @@
+<div id='gyrt-benefit'>
+      <%= f.simple_fields_for :gyrt_options do |go| %>
+        <%= render 'gyrt_option_fields', ff: go %>
+
+      <% end %>
+    </div>
+   
+  </div>
+  <%= link_to_add_nested(f, :gyrt_options, '#gyrt-benefit', link_text: "add option(s)", link_classes: "btn btn-primary btn-sm mt-3", partial_form_variable: :ff) %>
+
+
+<div class="wrapper-div">
+  <%= ff.input :total_premium %>
+  <%= ff.input :service_fee %>
+
+  <%= link_to_remove_nested(ff, link_text: "Remove", link_classes: "btn btn-danger btn-sm mt-2") %>
+</div>
+
+
+<div class='wrapper-div'>
+  <%= fff.association :benefit %>
+  <%= fff.input :sum_insured %>
+  <%= fff.input :premium %>
+  <%= link_to_remove_nested(fff, link_text: "Remove1", link_classes: "btn btn-danger btn-sm mt-1") %>
+</div>

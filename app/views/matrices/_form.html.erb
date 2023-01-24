@@ -1,0 +1,64 @@
+
+<%= simple_form_for(@matrix) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs mb-3 mt-3">
+    <div class="card">
+      <div class="card-header">
+        <%= content_tag :h3, "Create M.O.A" %>
+      </div>
+      <div class="card-body">
+
+        <div class="row mb-2">
+          <%= f.association :cooperative, wrapper_html: { class: "col-md-6" }, input_html: { data: { controller: "ts--select" } } %>
+          <%= f.input :product_name, wrapper_html: { class: "col-md-6" } %>
+        </div>
+
+        <div class="card mt-2 mb-2">
+          <div class="card-header">
+            Existing Member
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <%= f.input :old_min_age, label: "Entry Age", wrapper_html: { class: "col-md-6" } %>
+              <%= f.input :old_max_age, label: "Exit Age", wrapper_html: { class: "col-md-6" } %>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-2 mb-2">
+          <div class="card-header">
+            New Members
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <%= f.input :new_min_age, label: "Entry Age", wrapper_html: { class: "col-md-6" } %>
+              <%= f.input :new_max_age, label: "Exit Age", wrapper_html: { class: "col-md-6" } %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-5">
+          <%= f.input :prem_rate, label: "Premium Rate", wrapper_html: { class: "col-md-3" } %>
+          <%= f.input :rate_type, label: "Rate Type", wrapper_html: { class: "col-md-3" } %>
+          <%= f.input :coop_sf, label: "Coop Service Fee (%)", wrapper_html: { class: "col-md-3" } %>
+          <%= f.input :agent_sf, label: "Agent Service Fee (%)", wrapper_html: { class: "col-md-3" } %>
+        </div>
+        
+        <div class="row mt-5">
+          <%= f.association :gyrt_proposal, label_method: :matrix_name, wrapper_html: { class: "col-md-3" } %>
+          <%= f.input :proposal_no, wrapper_html: { class: "col-md-3" } %>
+          <%= f.input :policy_anniv, label: "Policy Anniversary", collection: ["Single", "Multiple", "12 Months"], prompt: "Select Policy Anniversary Type", input_html: { class: "form-select" }, wrapper_html: { class: "col-md-3" } %>
+          <%= f.input :min_enrollees_count, label: "Minimum Members Enrollee", wrapper_html: { class: "col-md-3" } %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions text-end">
+    <%= link_to "Back", matrices_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, 'Create MOA', class: 'btn-success' %>
+  </div>
+<% end %>

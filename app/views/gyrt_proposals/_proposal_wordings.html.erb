@@ -1,0 +1,202 @@
+<%= content_tag :h1, "Proposal No. #{@gyrt_proposal.proposal_no}" %>
+
+<%= content_tag :p, "Proposal for: #{@gyrt_proposal.cooperative}", class: "lead" %>
+
+<div class="container">
+  <%= content_tag :h3, "I. SCHEDULE OF BENEFITS AND PREMIUMS", class: "lead mt-5" %>
+  <table class="table">
+    <thead class="text-center">
+      <th>BENEFIT</th>
+      <th>AMOUNT INSURED</th>
+    </thead>
+    <tbody class="text-center">
+      <% @gyrt_proposal.gyrt_proposal_benefits.each do |i| %>
+        <tr>
+          <td> <%= i.benefit.name %> </td>
+          <td> <%= to_currency(i.sum_insured) %> </td>
+        </tr>
+      <% end %>
+      <tr>
+        <td colspan=2> <p class="lead">TOTAL PREMIUM: <b><%= to_currency(@gyrt_proposal.total_premium) %></b></p></td>
+      </tr>
+    </tbody>
+  </table>
+  
+
+  <%= content_tag :h3, "II. PERSONS ELIGIBLE", class: "lead mt-5" %>
+  <div>
+    <p>All present and future regular full-time permanent members/employees of the Cooperative.
+
+    <br />
+    <i><b>Old/Existing</b> members:</i> <b><%= @gyrt_proposal.old_min_age.humanize.capitalize %> (<%= @gyrt_proposal.old_min_age %>)</b> years old but not more than <b><%= @gyrt_proposal.old_max_age.humanize %> (<%= @gyrt_proposal.old_max_age %>)</b> years old.
+
+    <br />
+    <i><b>New/Additional</b> members:</i> <b>Entry age shall be at least <%= @gyrt_proposal.new_min_age.humanize %> (<%= @gyrt_proposal.new_min_age %>)</b> years old but not more than <b><%= @gyrt_proposal.new_max_age.humanize %> (<%= @gyrt_proposal.new_max_age %>)</b> years old and my renew up to age <b><%= (@gyrt_proposal.new_max_age+5).humanize %> (<%= (@gyrt_proposal.new_max_age+5) %>)</b> years old.
+    </p>
+
+    <p>All proposed Insureds must be able to perform independently the Activities of Daily Living (ADL) namely: eating/feeding, toileting, mobility/transferring, bathing and dressing; in good health, not bedridden. not hospitalized nor under treatment during the twelve (12) months period immediately preceding the date of application.
+    </p>
+
+  </div>
+
+  <%= content_tag :h3, "III. BASIC REQUIREMENTS", class: "lead mt-5" %>
+  <div>
+    <ol>
+      <li>Summary List of enrollees to be Insured</li>
+      <li>Application form (new enrollee)</li>
+    </ol>
+  </div>
+
+  <%= content_tag :h3, "IV. LIFE BENEFIT:", class: "lead mt-5" %>
+
+  <div>
+    <p>
+      In the event of the Insured's death while the Policy is in force, the sum insured as shown in the <b>Schedule of Benefits</b> will be payable to the beneficiaries of the Insured.
+    </p>
+    <p>
+      If the case of death is due to COVID-19 and there is no co-morbidity which such illness and the insurance coverage is in-force, 1CISP will pay the Life Benefit as stipulated in the Schedule of Benefits.
+    </p>
+    <p>
+      If death occured and the premium has not been fully paid for 1 year, the unpaid premium shall be deducted from the benefit proceeds. And if there is a missed or skipped monthly payments, the claim can be denied.
+    </p>
+    <table class="table">
+      <thead>
+        <th>Months Paid</th>
+        <th>Months Unpaid</th>
+        <th>Date of Death</th>
+        <th>Claims Status</th>
+        <th>Benefits to be paid</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>January - March (3 months)</td>
+          <td>April - Dec (9 months)</td>
+          <td>April 15</td>
+          <td>Approved</td>
+          <td>Coverage amount less 9 months of unpaid premium</td>
+        </tr>
+        <tr>
+          <td>January - August (8 months)</td>
+          <td>September - Dec (4 months)</td>
+          <td>Sep 15</td>
+          <td>Approved</td>
+          <td>Coverage amount less 4 months of unpaid premium</td>
+        </tr>
+        <tr>
+          <td>Jan & March (2 months)</td>
+          <td>With skipped month of Feb</td>
+          <td>April 15</td>
+          <td>Approved</td>
+          <td>Coverage amount less 10 months of unpaid premium</td>
+        </tr>
+        <tr>
+          <td>Jan, Feb, March, May & July (5 months)</td>
+          <td>With skipped months of April & June</td>
+          <td>July 15</td>
+          <td>Denied</td>
+          <td>No Benefit Proceeds</td>
+        </tr>
+        <tr>
+          <td>Jan & April</td>
+          <td>With skipped months of Feb & March</td>
+          <td>May 15</td>
+          <td>Denied</td>
+          <td>No Benefit Proceeds</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <%= content_tag :h3, "V. EXCLUSIONS:", class: "lead mt-5" %>
+  <div>
+    <p>
+      1CISP shall not pay any death benefit if the Member:
+        <ol = "1">
+          <li> commits suicide within one (1) year from the effective date of Group Policy or from the date of reinstatement; and</li>
+          <li> engange in military (ground, naval or aviation) services.</li>
+          <li> other excluisions may apply.</li>
+        </ol>
+    </p>
+  </div>
+
+  <%= content_tag :h3, "VI. PERFORMANCE EVALUATION:", class: "lead mt-5" %>
+  <div>
+    <p>
+      1CISP reserves the right to change/revise premium rates or benefit based on the claims experience on every renewal date of this plan.
+    </p>
+
+  </div>
+
+  <%= content_tag :h3, "VII. NUMBER OF PARTICIPATION:", class: "lead mt-5" %>
+  <div>
+    <p>
+      The minimum participation requirement for this plan shall be <b><%= @gyrt_proposal.members_count %></b> enrollees. Failure to meet the participation requirement before the policy year ends, insurance coverage or premium rate will be changed based on the actual date submitted.
+    </p>
+  </div>
+
+  <%= content_tag :h3, "VIII. CONTESTABILITY:", class: "lead mt-5" %>
+  <div>
+    <p>
+      The insurance coverage can be contested by 1CISP within one (1) year from the Effective Date of the plan for new and additional members of last reinstatement. Contestability shall be waived for Transferred Business and/or for old or existing member provided that the Coop will submit a copy of "Master List of Members" as basis that members has been Insured from the previous insurance provider.
+    </p>
+  </div>
+
+  <%= content_tag :h3, "IX. PROPOSAL VALIDITY DATE:", class: "lead mt-5" %>
+  <div>
+    <p>
+      <% expiry = @gyrt_proposal.created_at + 6.months %>
+      This proposal is valid until <b><%= expiry.day.ordinalize %> day of <%=  expiry.strftime("%B") %> <%= expiry.year %></b>
+    </p>
+  </div>
+
+  <%= content_tag :h3, "X. CLAIM REQUIREMENTS:", class: "lead mt-5" %>
+  <div>
+    <ol type="a">
+      <li><b>DEATH CLAIMS:</b></li>
+        <b>Basic Claim Requirements:</b>
+        
+        <ol type="1">
+          <% @claim_requirements.where(requirement_type: "Basic").each do |cr| %>
+            <%= content_tag :li do %>
+              <%= content_tag :span, cr.requirement, class: "fw-bold" %> <%= content_tag :span, "(#{cr.description})", class: "fst-italic" %>
+            <% end %>
+          <% end %>
+        </ol>
+
+        <br />
+
+        <b>Other Requirements</b>
+        <ol type=1>
+          <% @claim_requirements.where(requirement_type: "Other").each do |cr| %>
+            <%= content_tag :li do %>
+              <%= content_tag :span, cr.requirement, class: "fw-bold" %> <%= content_tag :span, "(#{cr.description})", class: "fst-italic" %>
+            <% end %>
+          <% end %>
+        </ol>
+        
+        <br />
+
+        <b>Additional Requirements (COVID-19 related claims):</b>
+        <ul>
+          <% @claim_requirements.where(requirement_type: "Additional").each do |cr| %>
+            <%= content_tag :li do %>
+              <%= content_tag :span, cr.requirement, class: "fw-regular" %>
+            <% end %>
+          <% end %>
+          <p class="small"><b><i>Note: 1CISP has the right to request additional documents on a case-to-case basis</i></b></p>
+        </ul>
+    </ul>
+
+  </div>
+  <div>
+    <p>
+      We trust that we have given you the important details of this plan.
+    </p>
+    <p>
+      Should you have any queries or require any further information please do not hesitate to contact us @ 09055153147 or email at <%= link_to "ncr@1cisp.coop", "#" %> / <%= link_to "leresdb@gmail.com", "#" %>
+    </p>
+  </div>
+
+  <%= render "mortality_table" if current_user.class.name == "Employee" && current_user.id == 6 %>
+
+</div>

@@ -1,0 +1,19 @@
+
+
+
+<div class="text-center mt-3">
+  <% unless @matrix.status == true %>
+    <%= link_to "Accept", matrix_update_status_path(@matrix), class: "btn btn-outline-primary btn-lg" %>  | <%= link_to "Edit", edit_matrix_path(@matrix), class: "btn btn-outline-success btn-lg" %>
+
+  <% else %>
+    <div class="p-3 mb-4 bg-light rounded-3 text-center">
+      <%= content_tag :h3, "M.O.A. ACCEPTED" %>
+    </div>
+    <%= link_to "Upload Batch", new_batch_path(matrix_id: @matrix), data: { turbo_frame: "remote_modal" } %>
+  <% end %>
+</div>
+
+<%= render @matrix %>
+
+
+

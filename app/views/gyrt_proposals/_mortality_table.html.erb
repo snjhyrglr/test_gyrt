@@ -1,0 +1,38 @@
+<div>
+    <div class="p-2 mb-2 bg-light rounded-3 text-center">
+      <%= content_tag :p, "MORTALITY TABLE USING 110% MLRE MORTALITY RATE", class: "lead fw-bold" %>
+    </div>
+    <table class="table">
+      <thead>
+        <th>Age</th>
+        <th>count(x)</th>
+        <th>110% rate (qx)</th>
+        <th>x * qx</th>
+      </thead>
+      <tbody>
+        <% @gyrt_rates.group(:age).each do |ben| %>
+          <tr>
+            <td> <%= ben.age %> </td>
+            <td> <%= ben.gyrt_rate_tables.sum(:count) %> </td>
+            <td> <%= ben.rate * 1000 %> </td>
+            <td> <%= ben.gyrt_rate_tables.sum(:qx) %> </td>
+          </tr>
+        <% end %>
+        <tr>
+          <td> <%= @gyrt_proposal.gyrt_rate_tables.sum(:count) %> </td>
+          <td> <%= @gyrt_proposal.gyrt_rate_tables.sum(:qx) %> </td>
+          <td> <%= @gyrt_proposal.gyrt_rate_tables.sum(:qx) / @gyrt_proposal.gyrt_rate_tables.sum(:count) %> </td>
+        </tr>
+        
+      </tbody>
+    </table>
+
+    <div class="p-2 mb-2 mt-2 bg-light rounded-3 text-center">
+      <%= content_tag :p, "LIFE RATE", class: "lead fw-bold" %>
+
+      <table class="table">
+        <thead>
+        </thead>
+      </table>
+    </div>
+  </div>

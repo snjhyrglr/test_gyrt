@@ -1,0 +1,140 @@
+<div id="<%= dom_id batch %>">
+  <p>
+    <strong>Quote year:</strong>
+    <%= batch.quote_year %>
+  </p>
+
+  <p>
+    <strong>Issuing office:</strong>
+    <%= batch.issuing_office %>
+  </p>
+
+  <p>
+    <strong>Quote no:</strong>
+    <%= batch.quote_no %>
+  </p>
+
+  <p>
+    <strong>Cooperative:</strong>
+    <%= batch.cooperative %>
+  </p>
+
+  <p>
+    <strong>Total gross prem:</strong>
+    <%= batch.total_gross_prem %>
+  </p>
+
+  <p>
+    <strong>Total coop sf:</strong>
+    <%= batch.total_coop_sf %>
+  </p>
+
+  <p>
+    <strong>Total net prem:</strong>
+    <%= batch.total_net_prem %>
+  </p>
+
+  <div class="row">
+
+    <div class="col-4">
+      <div class="card border-success mb-3">
+        <div class="card-header bg-success text-white">
+          Approve Premium
+        </div>
+        <div class="card-body">
+          <% approve_prem = batch.batch_items.where(status: "APPROVED").sum(:gross_prem) %>
+          <div class="row">
+            <div class="col-4">
+              <%= content_tag :span, "Premium" %>
+            </div>
+            <div class="col-2">
+              <%= content_tag :span, ":" %>
+            </div>
+            <div class="col-4">
+              <%= content_tag :span, to_currency(approve_prem) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4">
+      <div class="card border-danger mb-3">
+        <div class="card-header bg-danger text-white">
+          Denied Premium
+        </div>
+        <div class="card-body">
+          <% denied_prem = batch.batch_items.where(status: "DENIED").sum(:gross_prem) %>
+          <div class="row">
+            <div class="col-4">
+              <%= content_tag :span, "Premium" %>
+            </div>
+            <div class="col-2">
+              <%= content_tag :span, ":" %>
+            </div>
+            <div class="col-4">
+              <%= content_tag :span, to_currency(denied_prem) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4">
+      <div class="card border-secondary mb-3">
+        <div class="card-header bg-secondary text-white">
+          Pending Premium
+        </div>
+        <div class="card-body">
+          <% pending_prem = batch.batch_items.where(status: "PENDING").sum(:gross_prem) %>
+          <div class="row">
+            <div class="col-4">
+              <%= content_tag :span, "Premium" %>
+            </div>
+            <div class="col-2">
+              <%= content_tag :span, ":" %>
+            </div>
+            <div class="col-4">
+              <%= content_tag :span, to_currency(pending_prem) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <%= link_to "Approve All", approve_all_batch_items_path(batch_id: batch), class: "btn btn-outline-success btn-sm mb-2" %>
+  <%= link_to "Deny All", deny_all_batch_items_path(batch_id: batch), class: "btn btn-outline-danger btn-sm mb-2" %>
+  <table class="table">
+    <thead>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Sum Insured</th>
+      <th>Terms</th>  
+      <th>Premium</th> 
+      <th>Status</th> 
+      <th>Action</th> 
+    </thead>
+    <tbody>
+      <% batch.batch_items.each do |item| %>
+        <tr>
+          <td><%= item.member %></td>
+          <td><%= item.age %></td>
+          <td><%= to_currency(item.sum_insured) %></td>
+          <td>
+            <%= content_tag :span, "Effectivity: #{item.effective_date}", class: "badge text-dark" %> <br>
+            <%= content_tag :span, "Effectivity: #{item.expiry_date}", class: "badge text-dark" %> <br>
+            <%= content_tag :span, "Terms: #{item.terms}", class: "badge text-dark" %>
+          </td>
+          <td><%= to_currency(item.gross_prem) %></td>
+          <td><%= item.status %></td>
+          <td>
+            <%= link_to "Approve", approve_item_batch_item_path(id: item, batch_id: batch), class: "link-success" %> | <%= link_to "Deny", deny_item_batch_item_path(id: item, batch_id: batch), class: "link-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>

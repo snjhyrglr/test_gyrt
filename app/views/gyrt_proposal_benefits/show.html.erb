@@ -1,0 +1,9 @@
+
+<%= render @gyrt_proposal_benefit %>
+
+<div>
+  <%= link_to "Edit", edit_gyrt_proposal_benefit_path(@gyrt_proposal_benefit), class: 'btn btn-primary' %> |
+  <%= link_to "Back", gyrt_proposal_benefits_path, class: 'btn btn-primary' %>
+
+  <%= button_to "Delete", @gyrt_proposal_benefit, method: :delete, class: 'btn btn-danger' %>
+</div>

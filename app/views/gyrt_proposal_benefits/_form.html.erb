@@ -1,0 +1,17 @@
+
+<%= simple_form_for(@gyrt_proposal_benefit) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs mb-3">
+    <%= f.association :gyrt_proposal, label_method: :proposal_no %>
+    <%= f.association :benefit %>
+    <%= f.input :sum_insured %>
+    <%= f.input :base_prem %>
+  </div>
+
+  <div class="form-actions text-end">
+    <%= link_to "Back", gyrt_proposal_benefits_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn-success' %>
+  </div>
+<% end %>

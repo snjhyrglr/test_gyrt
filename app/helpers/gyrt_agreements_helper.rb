@@ -1,0 +1,2 @@
+module GyrtAgreementsHelper
+end

@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cooperative: one
+  incharge_name: MyString
+  inchage_position: MyString
+  new_min_age: 1
+  new_max_age: 1
+  old_min_age: 1
+  old_max_age: 1
+  ave_age: 1
+  members_count: 1
+  total_prem: 9.99
+
+two:
+  cooperative: two
+  incharge_name: MyString
+  inchage_position: MyString
+  new_min_age: 1
+  new_max_age: 1
+  old_min_age: 1
+  old_max_age: 1
+  ave_age: 1
+  members_count: 1
+  total_prem: 9.99

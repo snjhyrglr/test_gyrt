@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cooperative: one
+  batch_name: MyString
+  total_gross_prem: 9.99
+  total_coop_sf: 9.99
+  total_net_prem: 9.99
+  members_count: 1
+  denied_count: 1
+  effective_date: 2022-10-20
+  expiry_date: 2022-10-20
+  terms: 1
+
+two:
+  cooperative: two
+  batch_name: MyString
+  total_gross_prem: 9.99
+  total_coop_sf: 9.99
+  total_net_prem: 9.99
+  members_count: 1
+  denied_count: 1
+  effective_date: 2022-10-20
+  expiry_date: 2022-10-20
+  terms: 1

@@ -1,0 +1,55 @@
+<%= content_tag :h1, "List of Batch Items" %>
+
+
+<div class="text-end mb-3">
+  <%= link_to new_batch_item_path, class: 'btn btn-primary' do %>
+    New Batch Item
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+
+      <th>ID</th>
+        <th>Batch</th>
+        <th>Cooperative</th>
+        <th>Member</th>
+        <th>Age</th>
+        <th>Sum Insured</th>
+        <th>Effective Date</th>
+        <th>Expiry Date</th>
+        <th>Terms</th>
+        <th>Gross Prem</th>
+        <th></th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @batch_items.each do |batch_item| %>
+        <tr>
+
+        <td><%= batch_item.id %></td>
+        <td><%= batch_item.batch %></td>
+        <td><%= batch_item.cooperative %></td>
+        <td><%= batch_item.member %></td>
+        <td><%= batch_item.age %></td>
+        <td><%= to_currency(batch_item.sum_insured) %></td>
+        <td><%= batch_item.effective_date %></td>
+        <td><%= batch_item.expiry_date %></td>
+        <td><%= batch_item.terms %></td>
+        <td><%= to_currency(batch_item.gross_prem) %></td>
+    
+          <td>
+            <%= link_to 'View', batch_item, class: 'btn' %>
+            <%= link_to 'Edit', edit_batch_item_path(batch_item), class: 'btn' %>
+            <%= link_to 'Delete', batch_item, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn' %>
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

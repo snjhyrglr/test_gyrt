@@ -1,0 +1,48 @@
+<%= content_tag :h1, "List of Gyrt Rates" %>
+
+
+<div class="text-end mb-3">
+  <%= link_to new_gyrt_rate_path, class: 'btn btn-primary' do %>
+    New Gyrt Rate
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <div class="digg_pagination mb-3 float-end">
+    <%= will_paginate @gyrt_rates, :container => false %>
+  </div>
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+
+      <th>ID</th>
+        <th>Benefit</th>
+        <th>Age</th>
+        <th>Rate</th>
+        <th>Rate Type</th>
+        <th></th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @gyrt_rates.each do |gyrt_rate| %>
+        <tr>
+
+        <td><%= gyrt_rate.id %></td>
+        <td><%= gyrt_rate.benefit %></td>
+        <td><%= gyrt_rate.age %></td>
+        <td><%= gyrt_rate.rate %></td>
+        <td><%= gyrt_rate.rate_type %></td>
+    
+          <td>
+            <%= link_to 'View', gyrt_rate, class: 'btn' %>
+            <%= link_to 'Edit', edit_gyrt_rate_path(gyrt_rate), class: 'btn' %>
+            <%= link_to 'Delete', gyrt_rate, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn' %>
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

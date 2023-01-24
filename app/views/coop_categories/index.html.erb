@@ -1,0 +1,39 @@
+<%= content_tag :h1, "List of Coop Categories" %>
+
+
+<div class="text-end mb-3">
+  <%= link_to new_coop_category_path, class: 'btn btn-primary' do %>
+    New Coop Category
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+
+      <th>ID</th>
+        <th>Name</th>
+        <th></th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @coop_categories.each do |coop_category| %>
+        <tr>
+
+        <td><%= coop_category.id %></td>
+        <td><%= coop_category.name %></td>
+    
+          <td>
+            <%= link_to 'View', coop_category, class: 'btn' %>
+            <%= link_to 'Edit', edit_coop_category_path(coop_category), class: 'btn' %>
+            <%= link_to 'Delete', coop_category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn' %>
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

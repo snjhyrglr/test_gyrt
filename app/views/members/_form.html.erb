@@ -1,0 +1,32 @@
+
+<%= simple_form_for(@member) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs mb-3">
+    <%= f.association :cooperatives, input_html: { data: { controller: "ts--select" } } %>
+    <%= f.input :last_name %>
+    <%= f.input :first_name %>
+    <%= f.input :middle_name %>
+   <!--  <div data-controller="datepicker">
+      <%= f.input :birth_date, as: :string, input_html: { data: { datepicker_target: "datepick" } } %>
+    </div> -->
+      <%= f.input :birth_date, as: :string, input_html: { data: { controller: "flatpickr",
+      flatpickr_max_date: Time.zone.now,
+      flatpickr_next_arrow: "Next",
+      flatpickr_prev_arrow: "Prev" } } %>
+    <%= f.input :gender, as: :select, collection: ['Male', 'Female'], input_html: { class: "form-select" } %>
+    
+    <%= f.simple_fields_for :cooperative_members do |cm| %>
+      <%= cm.input :membership_date, as: :string, input_html: { data: { controller: "flatpickr",
+      flatpickr_max_date: Time.zone.now,
+      flatpickr_next_arrow: "Next",
+      flatpickr_prev_arrow: "Prev" } } %>
+    <% end %>
+  </div>
+
+  <div class="form-actions text-end">
+    <%= link_to "Back", members_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn-success' %>
+  </div>
+<% end %>

@@ -1,0 +1,41 @@
+<%= content_tag :h1, "List of Gyrt Loadings" %>
+
+
+<div class="text-end mb-3">
+  <%= link_to new_gyrt_loading_path, class: 'btn btn-primary' do %>
+    New Gyrt Loading
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+
+      <th>ID</th>
+        <th>Name</th>
+        <th>Rate</th>
+        <th></th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @gyrt_loadings.each do |gyrt_loading| %>
+        <tr>
+
+        <td><%= gyrt_loading.id %></td>
+        <td><%= gyrt_loading.name %></td>
+        <td><%= gyrt_loading.rate %></td>
+    
+          <td>
+            <%= link_to 'View', gyrt_loading, class: 'btn' %>
+            <%= link_to 'Edit', edit_gyrt_loading_path(gyrt_loading), class: 'btn' %>
+            <%= link_to 'Delete', gyrt_loading, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn' %>
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

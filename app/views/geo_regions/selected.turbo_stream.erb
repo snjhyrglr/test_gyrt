@@ -1,0 +1,5 @@
+<%= turbo_stream.update @target do %>
+  <%= @geo_provinces.each do |gp| %>
+    <%= content_tag :option, gp.name, value: gp.id  %>
+  <% end %>
+<% end %>
