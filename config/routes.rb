@@ -39,7 +39,11 @@ Rails.application.routes.draw do
     get :update_agent_coop, on: :member
   end
   
-  
+  resources :proposal_requirements do
+    get :remove, on: :member
+    get :add, on: :member
+  end
+
   get 'gyrt_proposals/pdf/:id', to: 'gyrt_proposals#pdf', as: 'proposal_pdf'
   resources :gyrt_proposals do
     post :compute_age, on: :collection
@@ -68,5 +72,5 @@ Rails.application.routes.draw do
   
   # Defines the root path route ("/")
   # root "pages#home"
-  root 'pages#home'
+  root 'gyrt_proposals#index'
 end

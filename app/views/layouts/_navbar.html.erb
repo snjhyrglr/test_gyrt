@@ -63,10 +63,11 @@
                 <%= content_tag :hr, "", class: "dropdown-divider" %>
               <% end %>
               <%= content_tag :li, link_to("Benefits", benefits_path, class: "dropdown-item") %>
-
+              <%= content_tag :li, link_to("Claims Req", claim_requirements_path, class: "dropdown-item") %>
+             
               <% if user_signed_in? %>
                 <%= content_tag :hr, "", class: "dropdown-divider" %>
-                <%= content_tag :li, link_to("logout", destroy_session_path(current_user), data: { turbo_method: :delete, turbo_confirm: "R U Sure?" }, class: "dropdown-item") %>
+                <%= content_tag :li, button_to("logout", destroy_session_path(current_user), method: :delete,  data: { confirm: "Are you sure?", turbo: false }, class: "dropdown-item") %>
               <% end %>
 
             <% end %>

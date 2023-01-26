@@ -154,11 +154,15 @@
     <ol type="a">
       <li><b>DEATH CLAIMS:</b></li>
         <b>Basic Claim Requirements:</b>
-        
         <ol type="1">
-          <% @claim_requirements.where(requirement_type: "Basic").each do |cr| %>
+          <% @claim_requirements.where(requirement_type: "Basic", proposal_requirements: { active: true }).each do |cr| %>
+          <%# <% claim_requirement.@gyrt_proposals.each do |cr| %>
             <%= content_tag :li do %>
               <%= content_tag :span, cr.requirement, class: "fw-bold" %> <%= content_tag :span, "(#{cr.description})", class: "fst-italic" %>
+              <% cr.proposal_requirements.each do |req| %>
+                <%= link_to "Remove", remove_proposal_requirement_path(req), class: "link link-danger" %>
+              <% end %>
+              
             <% end %>
           <% end %>
         </ol>
@@ -167,9 +171,10 @@
 
         <b>Other Requirements</b>
         <ol type=1>
-          <% @claim_requirements.where(requirement_type: "Other").each do |cr| %>
+          <% @claim_requirements.where(requirement_type: "Other", proposal_requirements: { active: true }).each do |cr| %>
             <%= content_tag :li do %>
               <%= content_tag :span, cr.requirement, class: "fw-bold" %> <%= content_tag :span, "(#{cr.description})", class: "fst-italic" %>
+              <%= link_to "Remove", cr, class: "link link-danger" %>
             <% end %>
           <% end %>
         </ol>
@@ -181,11 +186,25 @@
           <% @claim_requirements.where(requirement_type: "Additional").each do |cr| %>
             <%= content_tag :li do %>
               <%= content_tag :span, cr.requirement, class: "fw-regular" %>
+              <%= link_to "Remove", cr, class: "link link-danger" %>
             <% end %>
           <% end %>
           <p class="small"><b><i>Note: 1CISP has the right to request additional documents on a case-to-case basis</i></b></p>
         </ul>
-    </ul>
+    </ol>
+    <%= link_to "Add Claims Requirements", new_claim_requirement_path(gyrt_proposal: @gyrt_proposal), class: "btn btn-sm btn-outline-secondary", data: { turbo_frame: "remote_modal" } %>
+    <br />
+
+    <h4>Others requirements:</h4>
+    <% @claim_requirements.where(proposal_requirements: { active: false }).each do |cr| %>
+      <%= content_tag :li do %>
+        <%= content_tag :span, cr.requirement, class: "fw-bold" %> <%= content_tag :span, "(#{cr.description})", class: "fst-italic" %>
+        <% cr.proposal_requirements.each do |req| %>
+          <%= link_to "Add", add_proposal_requirement_path(req), class: "link link-success" %>
+        <% end %>
+        
+      <% end %>
+    <% end %>
 
   </div>
   <div>

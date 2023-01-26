@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  proposal: one
+  proposal_type: Proposal
+  requirement: one
+  requirement_type: Requirement
+  active: false
+
+two:
+  proposal: two
+  proposal_type: Proposal
+  requirement: two
+  requirement_type: Requirement
+  active: false

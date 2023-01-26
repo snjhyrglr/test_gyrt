@@ -48,7 +48,7 @@ class GyrtProposalsController < ApplicationController
 
   def to_pdf
     @gyrt_rates = GyrtRate.left_outer_joins(:gyrt_rate_tables).where(age: 18..65, benefit_id: 1).order("gyrt_rates.age")
-    @claim_requirements = ClaimRequirement.all
+    
     
     respond_to do |format|
       format.html
@@ -63,7 +63,10 @@ class GyrtProposalsController < ApplicationController
     # @gyrt_rates = GyrtRateTable.joins(:gyrt_rate).where(gyrt_proposal_id: @gyrt_proposal.id).order("gyrt_rates.age")
     
     @gyrt_rates = GyrtRate.left_outer_joins(:gyrt_rate_tables).where(age: 18..65, benefit_id: 1).order("gyrt_rates.age")
-    @claim_requirements = ClaimRequirement.all
+    
+    # @claim_requirements = ProposalRequirement.includes(:requirement).where(claim_requirements: {claim_requirements: 1}, proposal: @gyrt_proposal)
+    @claim_requirements = @gyrt_proposal.claim_requirements
+    # @claim_requirements = ProposalRequirement.where(proposal: @gyrt_proposal)
   end
 
   # GET /gyrt_proposals/new
@@ -87,6 +90,7 @@ class GyrtProposalsController < ApplicationController
         @gyrt_proposal.get_gyrt_table(params[:gyrt_proposal][:file])
         @gyrt_proposal.get_ages_for_computation(params[:gyrt_proposal][:file])
         @gyrt_proposal.compute_total_prem
+        @gyrt_proposal.save_claims_requirements
         
         format.html { redirect_to gyrt_proposal_url(@gyrt_proposal), notice: "Gyrt proposal was successfully created." }
         format.json { render :show, status: :created, location: @gyrt_proposal }

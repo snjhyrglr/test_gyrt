@@ -7,6 +7,9 @@ class GyrtProposal < ApplicationRecord
   has_many :benefits, through: :gyrt_proposal_benefits
   has_many :gyrt_rate_tables
   has_many :proposal_remarks
+
+  has_many :proposal_requirements, as: :proposal
+  has_many :claim_requirements, through: :proposal_requirements, source: :requirement, source_type: "ClaimRequirement"
   # belongs_to :matrix
 
   accepts_nested_attributes_for :gyrt_proposal_benefits, reject_if: :all_blank, allow_destroy: true
@@ -125,6 +128,17 @@ class GyrtProposal < ApplicationRecord
       # )
     end
   end
+
+  def save_claims_requirements
+    claims_req = ClaimRequirement.all
+    claims_req.each do |cr|
+      pr = ProposalRequirement.find_or_initialize_by(proposal: self, requirement: cr)
+      pr.active = 1
+      pr.save!
+    end
+    
+  end
+  
 
   def matrix_status(id)
     Matrix.find_by(gyrt_proposal_id: id).status

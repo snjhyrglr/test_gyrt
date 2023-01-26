@@ -2,7 +2,7 @@
 
 
 <div class="text-end mb-3">
-  <%= link_to new_claim_requirement_path, class: 'btn btn-primary' do %>
+  <%= link_to new_claim_requirement_path, class: 'btn btn-primary', data: { turbo_frame: "remote_modal" } do %>
     New Claim Requirement
   <% end %>
 </div>
@@ -26,11 +26,11 @@
 
         <td><%= claim_requirement.id %></td>
         <td><%= claim_requirement.requirement %></td>
-        <td><%= claim_requirement.type %></td>
+        <td><%= claim_requirement.requirement_type %></td>
     
           <td>
             <%= link_to 'View', claim_requirement, class: 'btn' %>
-            <%= link_to 'Edit', edit_claim_requirement_path(claim_requirement), class: 'btn' %>
+            <%= link_to 'Edit', edit_claim_requirement_path(claim_requirement), class: 'btn', data: { turbo_frame: "remote_modal" } %>
             <%= link_to 'Delete', claim_requirement, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn' %>
           </td>
 

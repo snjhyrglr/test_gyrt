@@ -4,8 +4,12 @@
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs mb-3">
+    <% gp_val = @gyrt_proposal.id if @gyrt_proposal %>
+    <% gp_disable = @gyrt_proposal.nil? ? true : false  %>
+    <%= f.input :gyrt_proposal, input_html: { value: gp_val }, disabled: gp_disable %>
     <%= f.input :requirement %>
-    <%= f.input :type %>
+    <%= f.input :description %>
+    <%= f.input :requirement_type, collection: ["Basic", "Other", "Additional"], input_html: { class: "form-select" } %>
   </div>
 
   <div class="form-actions text-end">

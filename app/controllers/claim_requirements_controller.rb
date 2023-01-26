@@ -13,6 +13,8 @@ class ClaimRequirementsController < ApplicationController
   # GET /claim_requirements/new
   def new
     @claim_requirement = ClaimRequirement.new
+    
+    @gyrt_proposal = GyrtProposal.find(params[:gyrt_proposal]) if params[:gyrt_proposal]
   end
 
   # GET /claim_requirements/1/edit
@@ -21,15 +23,21 @@ class ClaimRequirementsController < ApplicationController
 
   # POST /claim_requirements or /claim_requirements.json
   def create
+    # raise 'errors'
     @claim_requirement = ClaimRequirement.new(claim_requirement_params)
 
     respond_to do |format|
       if @claim_requirement.save
+        unless params[:claim_requirement][:gyrt_proposal].nil?
+          @claim_requirement.create_proposal_req(params[:claim_requirement][:gyrt_proposal])
+        end
         format.html { redirect_to claim_requirement_url(@claim_requirement), notice: "Claim requirement was successfully created." }
         format.json { render :show, status: :created, location: @claim_requirement }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @claim_requirement.errors, status: :unprocessable_entity }
+        format.turbo_stream { render :form_update, status: :unprocessable_entity }
+
       end
     end
   end
@@ -43,6 +51,8 @@ class ClaimRequirementsController < ApplicationController
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @claim_requirement.errors, status: :unprocessable_entity }
+        format.turbo_stream { render :form_update, status: :unprocessable_entity }
+
       end
     end
   end
@@ -65,6 +75,6 @@ class ClaimRequirementsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def claim_requirement_params
-      params.require(:claim_requirement).permit(:requirement, :type)
+      params.require(:claim_requirement).permit(:requirement, :description, :requirement_type, :gyrt_proposal)
     end
 end

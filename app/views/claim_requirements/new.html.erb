@@ -1,5 +1,4 @@
-<h1>New claim requirement</h1>
-
-<%= render "form", claim_requirement: @claim_requirement %>
-
-<br>
+<%= render "remote_modal", title: "New Claims Requirement" do %>
+  <%= render "form", claim_requirement: @claim_requirement %>
+<% end %>
+  
