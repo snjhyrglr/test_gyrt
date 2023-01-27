@@ -51,6 +51,8 @@ test:
 #
 production:
   <<: *default
+  # database: test_gyrt_production
+  # username: test_gyrt
   database: test_gyrt
   username: deploy
   # password: <%= ENV["TEST_GYRT_DATABASE_PASSWORD"] %>
