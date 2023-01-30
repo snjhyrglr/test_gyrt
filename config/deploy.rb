@@ -30,7 +30,7 @@ set :deploy_to, "/var/www/#{fetch :application}"
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "tmp/webpacker", "public/system", "vendor", "storage"
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system', 'public/uploads'
-append :linked_files, "config/master.key"
+append :linked_files, "config/secrets.yml", "config/master.key"
 
 namespace :deploy do
   namespace :check do
@@ -38,6 +38,9 @@ namespace :deploy do
       on roles(:app), in: :sequence, wait: 10 do
         unless test("[ -f #{shared_path}/config/master.key ]")
           upload! 'config/master.key', "#{shared_path}/config/master.key"
+        end
+        unless test("[ -f #{shared_path}/config/secrets.yml ]")
+          upload! 'config/secrets.yml', "#{shared_path}/config/secrets.yml"
         end
       end
     end
