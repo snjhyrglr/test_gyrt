@@ -56,4 +56,4 @@ production:
   database: test_gyrt
   username: deploy
   # password: <%= ENV["TEST_GYRT_DATABASE_PASSWORD"] %>
-  password: "1cisp"
+  password: "1CISPfamily1974!"
