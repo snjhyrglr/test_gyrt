@@ -48,12 +48,13 @@ class GyrtProposalsController < ApplicationController
 
   def to_pdf
     @gyrt_rates = GyrtRate.left_outer_joins(:gyrt_rate_tables).where(age: 18..65, benefit_id: 1).order("gyrt_rates.age")
-    
+    @claim_requirements = @gyrt_proposal.claim_requirements
+    @urd_requirements = @gyrt_proposal.urd_requirements
     
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "file_name", template: "gyrt_proposals/_proposal_wordings", formats: [:html], encoding: 'utf8'   # Excluding ".pdf" extension.
+        render pdf: "file_name", template: "gyrt_proposals/proposal_pdf", formats: [:html], encoding: 'utf8'   # Excluding ".pdf" extension.
       end
     end
   end
@@ -66,6 +67,7 @@ class GyrtProposalsController < ApplicationController
     
     # @claim_requirements = ProposalRequirement.includes(:requirement).where(claim_requirements: {claim_requirements: 1}, proposal: @gyrt_proposal)
     @claim_requirements = @gyrt_proposal.claim_requirements
+    @urd_requirements = @gyrt_proposal.urd_requirements
     # @claim_requirements = ProposalRequirement.where(proposal: @gyrt_proposal)
   end
 
@@ -87,10 +89,12 @@ class GyrtProposalsController < ApplicationController
     respond_to do |format|
       if @gyrt_proposal.save
         
+        @gyrt_proposal.convert_service_fee
         @gyrt_proposal.get_gyrt_table(params[:gyrt_proposal][:file])
         @gyrt_proposal.get_ages_for_computation(params[:gyrt_proposal][:file])
         @gyrt_proposal.compute_total_prem
         @gyrt_proposal.save_claims_requirements
+        @gyrt_proposal.save_urd_requirements
         
         format.html { redirect_to gyrt_proposal_url(@gyrt_proposal), notice: "Gyrt proposal was successfully created." }
         format.json { render :show, status: :created, location: @gyrt_proposal }
@@ -103,6 +107,8 @@ class GyrtProposalsController < ApplicationController
 
   # PATCH/PUT /gyrt_proposals/1 or /gyrt_proposals/1.json
   def update
+
+    @gyrt_proposal.convert_service_fee
     @gyrt_proposal.get_gyrt_table(params[:gyrt_proposal][:file])
     @gyrt_proposal.get_ages_for_computation(params[:gyrt_proposal][:file])
     @gyrt_proposal.compute_total_prem
@@ -144,8 +150,7 @@ class GyrtProposalsController < ApplicationController
 
   def update_agent_coop_status
     respond_to do |format|
-      if @gyrt_proposal.underwriting_approval_status == true && @gyrt_proposal.claims_approval_status == true && @gyrt_proposal.actuarial_approval_status == true && @gyrt_proposal == true
-
+      if @gyrt_proposal.underwriting_approval_status == true && @gyrt_proposal.claims_approval_status == true && @gyrt_proposal.actuarial_approval_status == true
         if @gyrt_proposal.update_attribute(:agent_coop_approval_status, 1)
           format.html { redirect_to gyrt_proposal_url(@gyrt_proposal), notice: "Agent/Coop Status Updated." }
         end

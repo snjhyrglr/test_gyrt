@@ -10,6 +10,7 @@ class GyrtProposal < ApplicationRecord
 
   has_many :proposal_requirements, as: :proposal
   has_many :claim_requirements, through: :proposal_requirements, source: :requirement, source_type: "ClaimRequirement"
+  has_many :urd_requirements, through: :proposal_requirements, source: :requirement, source_type: "UrdRequirement"
   # belongs_to :matrix
 
   accepts_nested_attributes_for :gyrt_proposal_benefits, reject_if: :all_blank, allow_destroy: true
@@ -91,8 +92,8 @@ class GyrtProposal < ApplicationRecord
     puts "Average age = #{average_age} *** Final age = #{final_age}"
     self.ave_age = average_age
     self.members_count = count
-    self.old_min_age = 18
-    self.old_max_age = old_max.ceil(-1)
+    #self.old_min_age = 18
+    #self.old_max_age = old_max.ceil(-1)
     
     puts "/******* Benefit_id: #{self.gyrt_proposal_benefits.first.benefit_id} *******/"
 
@@ -129,7 +130,7 @@ class GyrtProposal < ApplicationRecord
     end
   end
 
-  def save_claims_requirements
+  def save_claims_requirements 
     claims_req = ClaimRequirement.all
     claims_req.each do |cr|
       pr = ProposalRequirement.find_or_initialize_by(proposal: self, requirement: cr)
@@ -138,7 +139,22 @@ class GyrtProposal < ApplicationRecord
     end
     
   end
+
+  def save_urd_requirements
+    urd_req = UrdRequirement.all
+    urd_req.each do |ur|
+      pr = ProposalRequirement.find_or_initialize_by(proposal: self, requirement: ur)
+      pr.active = 1
+      pr.save!
+    end
+  end
   
+  def convert_service_fee
+    self.update(
+      coop_sf: self.coop_sf / 100,
+      agent_sf: self.agent_sf / 100
+    )
+  end
 
   def matrix_status(id)
     Matrix.find_by(gyrt_proposal_id: id).status

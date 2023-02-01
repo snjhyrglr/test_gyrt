@@ -1,0 +1,19 @@
+
+<%= simple_form_for(@urd_requirement) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs mb-3">
+    <% gp_val = @gyrt_proposal.id if @gyrt_proposal %>
+    <%= f.input :gyrt_proposal, input_html: { value: gp_val }, disabled: true %>
+    <%= f.input :gyrt_proposal, input_html: { value: gp_val }, as: :hidden %>
+    <%= f.input :requirement %>
+    <%= f.input :description %>
+    <%= f.input :requirement_type %>
+  </div>
+
+  <div class="form-actions text-end">
+    <%= link_to "Back", urd_requirements_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn-success' %>
+  </div>
+<% end %>

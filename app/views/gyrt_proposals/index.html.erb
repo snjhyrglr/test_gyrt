@@ -2,9 +2,12 @@
 
 
 <div class="text-end mb-3">
-  <%= link_to new_gyrt_proposal_path, class: 'btn btn-primary' do %>
-    New Gyrt Proposal
+  <% if can? :create, GyrtProposal %>
+    <%= link_to new_gyrt_proposal_path, class: 'btn btn-primary' do %>
+      New Gyrt Proposal
+    <% end %>
   <% end %>
+  
 </div>
 
 <div class="table-responsive">

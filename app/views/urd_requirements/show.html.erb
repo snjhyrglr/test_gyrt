@@ -1,0 +1,9 @@
+
+<%= render @urd_requirement %>
+
+<div>
+  <%= link_to "Edit", edit_urd_requirement_path(@urd_requirement), class: 'btn btn-primary' %> |
+  <%= link_to "Back", urd_requirements_path, class: 'btn btn-primary' %>
+
+  <%= button_to "Delete", @urd_requirement, method: :delete, class: 'btn btn-danger' %>
+</div>

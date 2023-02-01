@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_24_054258) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_31_031217) do
   create_table "agents", charset: "utf8mb4", force: :cascade do |t|
     t.string "last_name"
     t.string "first_name"
@@ -379,6 +379,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_24_054258) do
     t.datetime "updated_at", null: false
     t.index ["proposal_type", "proposal_id"], name: "index_proposal_requirements_on_proposal"
     t.index ["requirement_type", "requirement_id"], name: "index_proposal_requirements_on_requirement"
+  end
+
+  create_table "urd_requirements", charset: "utf8mb4", force: :cascade do |t|
+    t.text "requirement"
+    t.text "description"
+    t.string "requirement_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "geo_barangays", "geo_municipalities"

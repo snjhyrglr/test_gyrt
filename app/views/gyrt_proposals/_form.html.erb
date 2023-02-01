@@ -18,10 +18,14 @@
           wrapper_html: { class: "col-md-6" } %>
           <%= f.input :new_max_age, label: "New Member Exit Age", 
           wrapper_html: { class: "col-md-6" } %>
+          <%= f.input :old_min_age, label: "Old Member Minimum Age", 
+          wrapper_html: { class: "col-md-6" } %>
+          <%= f.input :old_max_age, label: "Old Member Exit Age", 
+          wrapper_html: { class: "col-md-6" } %>
         </div>
         <div class="row">
-          <%= f.input :coop_sf, label: "Coop Service Fee", wrapper_html: { class: "col-md-6" } %>
-          <%= f.input :agent_sf, label: "Agent Service Fee", wrapper_html: { class: "col-md-6" } %>
+          <%= f.input :coop_sf, label: "Coop Service Fee (%)", wrapper_html: { class: "col-md-6" } %>
+          <%= f.input :agent_sf, label: "Agent Service Fee (%)", wrapper_html: { class: "col-md-6" } %>
         </div>
           <%#= f.input :pol_anniv, collection: ["Single", "Multiple", "12 Months"], label: "Select Policy Anniversary" %>
           <%#= f.input :old_min_age %>

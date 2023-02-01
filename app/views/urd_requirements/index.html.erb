@@ -1,0 +1,43 @@
+<%= content_tag :h1, "List of Urd Requirements" %>
+
+
+<div class="text-end mb-3">
+  <%= link_to new_urd_requirement_path, class: 'btn btn-primary', data: { turbo_frame: "remote_modal" } do %>
+    New Urd Requirement
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+
+      <th>ID</th>
+        <th>Requirement</th>
+        <th>Description</th>
+        <th>Requirement Type</th>
+        <th></th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @urd_requirements.each do |urd_requirement| %>
+        <tr>
+
+        <td><%= urd_requirement.id %></td>
+        <td><%= urd_requirement.requirement %></td>
+        <td><%= urd_requirement.description %></td>
+        <td><%= urd_requirement.requirement_type %></td>
+    
+          <td>
+            <%= link_to 'View', urd_requirement, class: 'btn' %>
+            <%= link_to 'Edit', edit_urd_requirement_path(urd_requirement), class: 'btn' %>
+            <%= link_to 'Delete', urd_requirement, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn' %>
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

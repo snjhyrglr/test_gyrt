@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :urd_requirements
   resources :claim_requirements
   devise_for :agents, path: 'agents'
   resources :agents

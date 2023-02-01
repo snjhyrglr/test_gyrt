@@ -39,7 +39,7 @@
 
             <div class="col-4">
               <% if can? stat[3], @gyrt_proposal %>                
-                <%= link_to "Approve", stat[2], class: "btn btn-success #{btn_stat}" %>                
+                <%= link_to stat[0] == "Agent/Coop" ? "Accept" : "Approve" , stat[2], class: "btn btn-success #{btn_stat}" %>                
               <% end %>
             </div>
 

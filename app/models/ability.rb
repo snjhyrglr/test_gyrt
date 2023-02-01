@@ -26,10 +26,13 @@ class Ability
         can [:selected], GeoMunicipality
         can [:selected], GeoBarangay
         can :crud, Cooperative
-
+        can :crud, UrdRequirement
       end
-      
-
+      if user.id == 5 # VP Jack
+        can [:read, :update_underwriting_status, :to_pdf], GyrtProposal
+        can :crud, UrdRequirement
+      end
+    
     when Agent
       can [:read, :create], Agent, id: user
       can [:crud, :update_agent_coop_status, :to_pdf], GyrtProposal
