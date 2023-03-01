@@ -46,7 +46,7 @@ gem "bootsnap", require: false
 gem "sassc-rails"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 1.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -86,6 +86,7 @@ gem 'ransack'
 gem "prawn", "~> 2.4"
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'wkhtmltopdf-binary-edge'
 
 gem 'devise'
 gem 'cancancan', '~> 3.4.0'
@@ -101,3 +102,7 @@ gem 'capistrano-ssh-doctor'
 gem 'ed25519', '~> 1.2'
 gem 'bcrypt_pbkdf', '~> 1'
 gem "matrix", "~> 0.4.2"
+
+gem 'active_storage_validations'
+gem 'activestorage-validator'
+

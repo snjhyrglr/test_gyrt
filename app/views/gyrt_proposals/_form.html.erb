@@ -24,8 +24,20 @@
           wrapper_html: { class: "col-md-6" } %>
         </div>
         <div class="row">
-          <%= f.input :coop_sf, label: "Coop Service Fee (%)", wrapper_html: { class: "col-md-6" } %>
-          <%= f.input :agent_sf, label: "Agent Service Fee (%)", wrapper_html: { class: "col-md-6" } %>
+          <div class="col-md-6">
+            <%= f.input :coop_sf, label: "Coop Service Fee (%)" %>
+          </div>
+          <div class="col-md-6">
+            <%= f.input :agent_sf, label: "Agent Service Fee (%)"%>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <%= f.input :policy_anniv_type, as: :select, collection: ["Single", "Multiple", "12 Months"], label: "Policy Anniversary Type", input_html: { class: "form-select" } %>
+          </div>
+           <div class="col-md-6">
+            <%= f.input :type_of_business, as: :select, collection: ["New", "Recovered", "Transferred"], label: "Type of Business", input_html: { class: "form-select" } %>
+          </div>
         </div>
           <%#= f.input :pol_anniv, collection: ["Single", "Multiple", "12 Months"], label: "Select Policy Anniversary" %>
           <%#= f.input :old_min_age %>

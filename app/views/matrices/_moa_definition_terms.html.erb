@@ -23,7 +23,7 @@
   </div>
 
   <p class="me-3" style="text-align: justify;">
-  <b>2.<u class="ms-3">Minimum Participation.</u></b> The COOPERATIVE shall enroll at least a minimum of <b><%= matrix.min_enrollees_count.humanize %> (<%= matrix.min_enrollees_count %>)</b> initial eligible members to implement this group insurance plan. 1 CISP shall re-price the premium rate in case the number of enrollees falls below <%= matrix.min_enrollees_count.humanize %> (<%= matrix.min_enrollees_count %>) 
+  <b>2.<u class="ms-3">Minimum Participation.</u></b> The COOPERATIVE shall enroll at least a minimum of <b><%= num_to_human(matrix.min_enrollees_count.to_i) %> (<%= matrix.min_enrollees_count %>)</b> initial eligible members to implement this group insurance plan. 1 CISP shall re-price the premium rate in case the number of enrollees falls below <b><%= num_to_human(matrix.min_enrollees_count.to_i) %> (<%= matrix.min_enrollees_count %>)</b> 
   </p>
 
   <p class="me-3" style="text-align: justify;">
@@ -42,7 +42,15 @@
     <p><b>a. Eligibility Requirements</b></p>
     <table>
       <tr>
-        <pre class="ms-5">Entry Age for New Members:         <b><%= matrix.new_min_age %> - <%= matrix.new_max_age %></b> years old </pre>
+        <p>Old/Existing Members</p>
+        <pre class="ms-5">Entry Age:         <b><%= matrix.old_min_age %></b> years old </pre>
+      </p>
+      <tr>
+        <pre class="ms-5">Exit Age:          <b><%= matrix.old_max_age %></b> years old </pre>
+      </tr>
+      <tr>
+        <p>New Members</p>
+        <pre class="ms-5">Entry Age:         <b><%= matrix.new_min_age %> </b> years old </pre>
       </tr>
       <tr>
         <pre class="ms-5">Exit Age:          <b><%= matrix.new_max_age %></b> years old </pre>
@@ -158,16 +166,21 @@
       <li>
         <b>Underwriting</b>
         <ol type=1>
-          <li>Summary Report Form</li>
-          <li>GYRT Member's Enrollment Form</li>
+          <% matrix.gyrt_proposal.urd_requirements.where(proposal_requirements: { active: true } ).each do |urd_req| %>
+            <%= content_tag :li do %>
+              <%= content_tag :span, urd_req.requirement %>
+            <% end %>
+          <% end %>
         </ol>
       </li>
       <li>
         <b>Claims</b>
         <ol type=1>
-          <li>Claimant's Statement Form</li>
-          <li>Attending Physician's Statement Form</li>
-          <li>Release of Claim Form</li>
+          <% matrix.gyrt_proposal.claim_requirements.where(proposal_requirements: { active: true }).each do |claims_req| %>
+            <%= content_tag :li do %>
+              <%= content_tag :span, claims_req.requirement %>
+            <% end %>
+          <% end %>
         </ol>
       </li>
     </ol>

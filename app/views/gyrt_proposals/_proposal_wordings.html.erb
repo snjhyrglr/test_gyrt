@@ -48,27 +48,36 @@
             <% unless ur.description == "" %>
               <%= content_tag :span, "(#{ur.description})", class: "fst-italic" %>
             <% end %>
-             <% ur.proposal_requirements.each do |req| %>
+             <% ur.proposal_requirements.where(proposal_id: @gyrt_proposal).each do |req| %>
                 <%= link_to "Remove", remove_proposal_requirement_path(req), class: "link link-danger" %>
               <% end %>
         <% end %>
       <% end %>
     </ol>
-    <%= link_to "Add URD Requirements", new_urd_requirement_path(gyrt_proposal: @gyrt_proposal), class: "btn btn-sm btn-outline-secondary", data: { turbo_frame: "remote_modal" } %>
 
-    <%= content_tag :h4, "Others underwriting requirements:", class: "mt-2" %>
-    <% @urd_requirements.where(proposal_requirements: { active: false }).each do |ur| %>
-      <%= content_tag :li do %>
-        <%= content_tag :span, ur.requirement, class: "fw-bold" %> 
-        <% unless ur.description == "" %>
-          <%= content_tag :span, "(#{ur.description})", class: "fst-italic" %>
-        <% end %>
-        <% ur.proposal_requirements.each do |req| %>
-          <%= link_to "Add", add_proposal_requirement_path(req), class: "link link-success" %>
-        <% end %>
+    <div class="card mt-2">
+      <div class="card-header">
+        <%= content_tag :h4, "Others underwriting requirements:", class: "mt-2" %>
+      </div>
+      <div class="card-body">
+        <% @urd_requirements.where(proposal_requirements: { active: false }).each do |ur| %>
+          <%= content_tag :li do %>
+            <%= content_tag :span, ur.requirement, class: "fw-bold" %> 
+            <% unless ur.description == "" %>
+              <%= content_tag :span, "(#{ur.description})", class: "fst-italic" %>
+            <% end %>
+            <% ur.proposal_requirements.where(proposal_id: @gyrt_proposal).each do |req| %>
+              <%= link_to "Add", add_proposal_requirement_path(req), class: "link link-success" %>
+            <% end %>
         
-      <% end %>
-    <% end %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="card-footer">
+        <%= link_to "Add URD Requirements", new_urd_requirement_path(gyrt_proposal: @gyrt_proposal), class: "btn btn-sm btn-outline-secondary", data: { turbo_frame: "remote_modal" } %>
+      </div>
+    </div>
+    
   </div>
 
   <%= content_tag :h3, "IV. LIFE BENEFIT:", class: "lead mt-5" %>
@@ -168,7 +177,7 @@
   <%= content_tag :h3, "IX. PROPOSAL VALIDITY DATE:", class: "lead mt-5" %>
   <div>
     <p>
-      <% expiry = @gyrt_proposal.created_at + 6.months %>
+      <% expiry = @gyrt_proposal.created_at + 3.months %>
       This proposal is valid until <b><%= expiry.day.ordinalize %> day of <%=  expiry.strftime("%B") %> <%= expiry.year %></b>
     </p>
   </div>
@@ -183,7 +192,7 @@
           <%# <% claim_requirement.@gyrt_proposals.each do |cr| %>
             <%= content_tag :li do %>
               <%= content_tag :span, cr.requirement, class: "fw-bold" %> <%= content_tag :span, "(#{cr.description})", class: "fst-italic" %>
-              <% cr.proposal_requirements.each do |req| %>
+              <% cr.proposal_requirements.where(proposal_id: @gyrt_proposal).each do |req| %>
                 <%= link_to "Remove", remove_proposal_requirement_path(req), class: "link link-danger" %>
               <% end %>
               
@@ -193,12 +202,12 @@
 
         <br />
 
-        <b>Other Requirements</b>
+        <b>Additional Requirements</b>
         <ol type=1>
           <% @claim_requirements.where(requirement_type: "Other", proposal_requirements: { active: true }).each do |cr| %>
             <%= content_tag :li do %>
               <%= content_tag :span, cr.requirement, class: "fw-bold" %> <%= content_tag :span, "(#{cr.description})", class: "fst-italic" %>
-              <% cr.proposal_requirements.each do |req| %>
+              <% cr.proposal_requirements.where(proposal_id: @gyrt_proposal).each do |req| %>
                 <%= link_to "Remove", remove_proposal_requirement_path(req), class: "link link-danger" %>
               <% end %>
             <% end %>
@@ -218,19 +227,27 @@
           <p class="small"><b><i>Note: 1CISP has the right to request additional documents on a case-to-case basis</i></b></p>
         </ul>
     </ol>
-    <%= link_to "Add Claims Requirements", new_claim_requirement_path(gyrt_proposal: @gyrt_proposal), class: "btn btn-sm btn-outline-secondary", data: { turbo_frame: "remote_modal" } %>
     <br />
 
-    <h4>Others claims requirements:</h4>
-    <% @claim_requirements.where(proposal_requirements: { active: false }).each do |cr| %>
-      <%= content_tag :li do %>
-        <%= content_tag :span, cr.requirement, class: "fw-bold" %> <%= content_tag :span, "(#{cr.description})", class: "fst-italic" %>
-        <% cr.proposal_requirements.each do |req| %>
-          <%= link_to "Add", add_proposal_requirement_path(req), class: "link link-success" %>
+    <div class="card mt-2">
+      <div class="card-header">
+        <h4>Others claims requirements:</h4>
+      </div>
+      <div class="card-body">
+        <% @claim_requirements.where(proposal_requirements: { active: false }).each do |cr| %>
+          <%= content_tag :li do %>
+            <%= content_tag :span, cr.requirement, class: "fw-bold" %> <%= content_tag :span, "(#{cr.description})", class: "fst-italic" %>
+            <% cr.proposal_requirements.where(proposal_id: @gyrt_proposal).each do |req| %>
+              <%= link_to "Add", add_proposal_requirement_path(req), class: "link link-success" %>
+            <% end %>
+            
+          <% end %>
         <% end %>
-        
-      <% end %>
-    <% end %>
+      </div>
+      <div class="card-footer">
+        <%= link_to "Add Claims Requirements", new_claim_requirement_path(gyrt_proposal: @gyrt_proposal), class: "btn btn-sm btn-outline-secondary", data: { turbo_frame: "remote_modal" } %>
+      </div>
+    </div>
 
   </div>
   <div>

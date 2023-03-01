@@ -73,7 +73,12 @@ class GyrtProposalsController < ApplicationController
 
   # GET /gyrt_proposals/new
   def new
-    @gyrt_proposal = GyrtProposal.new(incharge_name: FFaker::Name.unique.name, inchage_position: FFaker::Company.unique.position)
+    
+    if Rails.env.development?
+      @gyrt_proposal = GyrtProposal.new(incharge_name: FFaker::Name.unique.name, inchage_position: FFaker::Company.unique.position)
+    else 
+      @gyrt_proposal = GyrtProposal.new
+    end
     # @gyrt_option_benefits = @gyrt_proposal.gyrt_options.build.gyrt_option_benefits.build
   end
 
@@ -95,6 +100,7 @@ class GyrtProposalsController < ApplicationController
         @gyrt_proposal.compute_total_prem
         @gyrt_proposal.save_claims_requirements
         @gyrt_proposal.save_urd_requirements
+        @gyrt_proposal.set_validity
         
         format.html { redirect_to gyrt_proposal_url(@gyrt_proposal), notice: "Gyrt proposal was successfully created." }
         format.json { render :show, status: :created, location: @gyrt_proposal }
@@ -179,7 +185,7 @@ class GyrtProposalsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def gyrt_proposal_params
       params.require(:gyrt_proposal
-      ).permit(:cooperative_id, :incharge_name, :inchage_position, :new_min_age, :new_max_age, :old_min_age, :old_max_age, :ave_age, :members_count, :file, :coop_sf, :agent_sf, :status,
+      ).permit(:cooperative_id, :incharge_name, :inchage_position, :new_min_age, :new_max_age, :old_min_age, :old_max_age, :ave_age, :members_count, :file, :coop_sf, :agent_sf, :status, :type_of_business, :policy_anniversary, :validity, :is_valid,
         gyrt_proposal_benefits_attributes: [
           :id, :gyrt_proposal_id, :benefit_id, :sum_insured, :base_prem, :_destroy
         ]

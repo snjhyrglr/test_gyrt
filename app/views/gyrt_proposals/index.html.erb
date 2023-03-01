@@ -20,7 +20,10 @@
         <th>In-charge Person</th>
         <th>Age Requirement</th>
         <th>Minimium Participation</th>
-        <th>Status</th>
+        <th>Actuarial Status</th>
+        <th>Underwriting Status</th>
+        <th>Claims Status</th>
+        <th>Agent Status</th>
 
       </tr>
     </thead>
@@ -48,48 +51,22 @@
           </td>
           <td><%= "#{gyrt_proposal.members_count} members" %></td>
         
+          
           <td>
-            <div class="row">
-              <div class="col-6">
-                Actuarial:
-              </div>
-              <div class="col-6">
-              <% if gyrt_proposal.actuarial_approval_status == true %>
-                <% bg = "success" %>
-              <% else %>
-                <% bg = "danger" %>
-              <% end %>
-              <%= content_tag :span, gyrt_proposal.actuarial_approval_status, class: "badge rounded-pill bg-#{bg}" %> 
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-6">
-                URD:
-              </div>
-              <div class="col-6">
-              <% if gyrt_proposal.underwriting_approval_status == true %>
-                <% bg = "success" %>
-              <% else %>
-                <% bg = "danger" %>
-              <% end %>
-              <%= content_tag :span, gyrt_proposal.underwriting_approval_status, class: "badge rounded-pill bg-#{bg}" %> 
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-6">
-                Claims:
-              </div>
-              <div class="col-6">
-              <% if gyrt_proposal.underwriting_approval_status == true %>
-                <% bg = "success" %>
-              <% else %>
-                <% bg = "danger" %>
-              <% end %>
-              <%= content_tag :span, gyrt_proposal.claims_approval_status, class: "badge rounded-pill bg-#{bg}" %> 
-              </div>
-            </div>
-            <%#= content_tag :span, proposal_status, class: "lead text-#{badge_text}" %> 
-            <%#= content_tag :span, next_step, class: "badge text-#{badge_text}" %>
+            <% bg = badge_status_color(gyrt_proposal.actuarial_approval_status) %>
+            <%= content_tag :span, status_name(gyrt_proposal.actuarial_approval_status), class: "badge rounded-pill bg-#{bg}" %>
+          </td>
+          <td>
+            <% bg = badge_status_color(gyrt_proposal.underwriting_approval_status) %>
+            <%= content_tag :span, status_name(gyrt_proposal.underwriting_approval_status), class: "badge rounded-pill bg-#{bg}" %>
+          </td>
+          <td>
+            <% bg = badge_status_color(gyrt_proposal.claims_approval_status) %>
+            <%= content_tag :span, status_name(gyrt_proposal.claims_approval_status), class: "badge rounded-pill bg-#{bg}" %>
+          </td>
+          <td>
+            <% bg = badge_status_color(gyrt_proposal.agent_coop_approval_status) %>
+            <%= content_tag :span, status_name(gyrt_proposal.agent_coop_approval_status), class: "badge rounded-pill bg-#{bg}" %>
           </td>
           
           

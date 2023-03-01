@@ -122,51 +122,102 @@
       </div>
       
       <div>
-        <%= content_tag :span, "For Approval Status", class: "fw-bold lead" %>
-        <% for_approve = [
-          ["Underwriting", gyrt_agreement.underwriting_status, update_und_gyrt_agreement_path(gyrt_agreement), :update_und],
-          ["Claims", gyrt_agreement.claims_status, update_claims_gyrt_agreement_path(gyrt_agreement), :update_claims],
-          ["Agent/Coop", gyrt_agreement.agent_coop_status, update_agent_coop_gyrt_agreement_path(gyrt_agreement), :update_agent_coop],
-          ["VP for Life Ops", gyrt_agreement.vp_status, update_vp_gyrt_agreement_path(gyrt_agreement), :update_vp]
-        ] %>
-
-        <% for_approve.each do |fa| %>
-          <% if fa[1] == true %>
-            <% btn_val = "d-none" %>
-            <% stat_val = "APPROVED" %>
-            <% style_val = "success" %>
-          <% else %>
-            <% stat_val = "PENDING" %>
-            <% style_val = "secondary" %>
+        <%= content_tag :span, "Attachments Status", class: "fw-bold lead" %>
+        <div>
+          <% uploads = [ 
+            ['Logo', gyrt_agreement.coop_logo.attached?],
+            ["I.D Upload", gyrt_agreement.ids_upload],
+            ["M.O.A. Signed", gyrt_agreement.signed_by_coop],
+            ["M.O.A. Notarized", gyrt_agreement.notarized],
+            ["Masterlist of Members", gyrt_agreement.members_masterlist]
+          ]%>
+          <% uploads.each do |u| %>
+            <% if u[1] == true %>
+              <% sv = "success" %>
+              <% val = "UPLOADED" %>
+            <% else %>
+              <% sv = "secondary" %>
+              <% val = "PENDING" %>
+            <% end %>
+            <div class="row text-center">
+              <div class="col-3">
+                <%= content_tag :span, u[0] %>
+              </div>
+              <div class="col-2">
+              :
+              </div>
+              <div class="col-2">
+                <%= content_tag :span, val, class: "badge text-#{sv}" %>
+              </div>
+            </div>
           <% end %>
-          <div class="row text-center">
-            <div class="col-3">
-              <%= content_tag :span, fa[0] %>
-            </div>
-            <div class="col-2">
-            :
-            </div>
-            <div class="col-2">
-              <%= content_tag :span, stat_val, class: "badge text-#{style_val}" %>
-            </div>
-            <div class="col-2">
-              <% if can? fa[3], gyrt_agreement %>
-                <%= button_to "Approve", fa[2], class: "btn btn-sm btn-secondary mb-1 #{btn_val}", data: { turbo_confirm: "Are you sure?" }, method: :get %>
-              <% end %>
-            </div>
-          </div>
+        </div>
+       
+
+      </div>
+
+      <div>
+        <h4>Attachments</h4>
+        <% if @gyrt_agreement.id_uploads.nil? == false && @gyrt_agreement.coop_logo.attached? == false  && @gyrt_agreement.signed_moa.nil? == false %>
+          <%= content_tag :h4, "No Attachment Uploaded", class: "lead" %>
+        <% else %> 
+          <% @gyrt_agreement.id_uploads.each_with_index do |id, index| %>
+            <%= content_tag :p, link_to("ID ##{index + 1} - #{id.filename}", rails_blob_url(id), target: :_blank), class: "lead" %>
+          <% end %>
+          <%#= link_to image_tag(@gyrt_agreement.coop_logo), "image" %>
+          <% unless @gyrt_agreement.coop_logo.attached? %>
+            <%= content_tag :p, "No Coop Logo Uploaded" %>
+            <% else %>
+            <%= content_tag :p, link_to("View Logo", rails_blob_url(@gyrt_agreement.coop_logo), target: :_blank), class: "lead" %>
+          <% end %>
+          <% unless @gyrt_agreement.signed_moa.attached? %>
+            <%= content_tag :p, "Signed MOA not Uploaded" %>
+          <% else %>
+            <%= content_tag :p, link_to("View Signed MOA", rails_blob_url(@gyrt_agreement.signed_moa), target: :_blank), class: "lead" %>
+          <% end %>
+          <% unless @gyrt_agreement.notarized_moa.attached? %>
+            <%= content_tag :p, "Notarized MOA not Uploaded" %>
+          <% else %>
+            <%= content_tag :p, link_to("View Notarized MOA", rails_blob_url(@gyrt_agreement.notarized_moa), target: :_blank), class: "lead" %>
+          <% end %>
         <% end %>
       </div>
+
+
 
       
     </div>
     <div class="card-footer">
       <%= link_to "View PDF", to_pdf_gyrt_agreement_path(@gyrt_agreement, format: :pdf), class: "btn btn-warning btn-sm" %>
-      <% if gyrt_agreement.underwriting_status == true && gyrt_agreement.claims_status == true && gyrt_agreement.agent_coop_status == true && gyrt_agreement.vp_status == true %>
-        <%= link_to "Add Members", new_batch_path(coop: gyrt_agreement.cooperative, proposal_id: gyrt_agreement.gyrt_proposal.id), class: "btn btn-secondary btn-sm", data: { turbo_frame: "remote_modal" } %>
-        <%= link_to "Add Coop Logo", "#", class: "btn btn-secondary btn-sm" %>
+      <% if current_user.class.name == "Agent" %>
+
+        <% if can? :batch_import, Member %>
+          <%= link_to "Upload Master List", batch_form_members_path(coop: gyrt_agreement.cooperative, moa: gyrt_agreement), class: "btn btn-secondary btn-sm", data: { turbo_frame: "remote_modal" } %>
+        <% end %>
+
+        <% unless @gyrt_agreement.coop_logo.attached? %>
+          <%= link_to "Upload Coop Logo", moa_attachments_gyrt_agreement_path(title: "Upload Cooperative Logo", f: "logo"), class: "btn btn-secondary btn-sm", data: { turbo_frame: "remote_modal" } %>
+        <% end %>
+        
+        <% unless @gyrt_agreement.id_uploads.attached? %>
+          <%= link_to "Upload IDs", moa_attachments_gyrt_agreement_path(title: "Upload IDs", f: "id"), class: "btn btn-secondary btn-sm", data: { turbo_frame: "remote_modal" } %>
+        <% end %>
+
+        <% unless @gyrt_agreement.signed_moa.attached? %>
+          <%= link_to "Upload Signed MOA", moa_attachments_gyrt_agreement_path(title: "Upload Signed MOA", f: "signed_moa"), class: "btn btn-secondary btn-sm", data: { turbo_frame: "remote_modal" } %>
+        <% end %>
+
+      <% elsif current_user.class.name == "Employee" && current_user.id == 9 %>
+        <% unless @gyrt_agreement.notarized_moa.attached? %>
+          <%= link_to "Upload Notarized M.O.A", moa_attachments_gyrt_agreement_path(title: "Upload Notarized MOA", f: "notarized_moa"), class: "btn btn-secondary btn-sm", data: { turbo_frame: "remote_modal" }  %>
+        <% end %>
       <% end %>
-      <%= link_to "Upload Masterlist of Members", batch_form_members_path(coop: gyrt_agreement.cooperative, moa: gyrt_agreement), class: "btn btn-outline-success btn-sm", data: { turbo_frame: "remote_modal" } %>
+      <%# if can? :batch_import, Member %>
+        <%#= link_to "Upload Masterlist of Members", batch_form_members_path(coop: gyrt_agreement.cooperative, moa: gyrt_agreement), class: "btn btn-outline-success btn-sm", data: { turbo_frame: "remote_modal" } %>
+      <%# end %>
+      <%# if current_user.class.name == "Agent" %>
+        <%#= link_to "Upload Coop Logo", "#", class: "btn btn-outline-warning btn-sm" %>
+      <%# end %>
     </div>
 
   </div>

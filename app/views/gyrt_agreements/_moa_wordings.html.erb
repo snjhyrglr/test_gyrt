@@ -1,80 +1,215 @@
-<div class="card mx-auto border-danger mt-5" style="max-width: 50rem;font-family: 'Times New Roman', Times, serif;">
-    <div>
-      <%= image_tag("1cisp.png", size: "200x100", class: "float-start") %>
-      <h2 class="ms-n5 mt-3 mb-3"><b>M</b>emorandum <b>O</b>f <b>A</b>greement</h2>
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <%= wicked_pdf_stylesheet_link_tag "application" -%>
+    <%= wicked_pdf_javascript_include_tag "number_pages" %>
+  </head>
+  <body onload='number_pages'>
+    <div id="header">
     </div>
-    <p class="ms-3 fw-bold fs-5">KNOW ALL BY MEN BY THESE PRESENTS:</p>
+    <div id="content">
+      <div class="card mx-auto border-danger mt-5" style="max-width: 50rem;font-family: 'Times New Roman', Times, serif;">
+          <div>
+            <%#= image_tag wicked_pdf_asset_base64("1cisp.png"), size: "200x100", class: "float-start" %>
+            <h1 class="mt-3 mb-5 text-center"><b>M</b>emorandum <b>O</b>f <b>A</b>greement</h1>
+          </div>
+          <p class="ms-3 fw-bold fs-5">KNOW ALL BY MEN BY THESE PRESENTS:</p>
 
-    <p class="fs-6 ms-3 me-3" style="text-align: justify;">
-      This AGREEMENT made and executed this <u><%= @gyrt_agreement.created_at.day %></u> day of <u><%= @gyrt_agreement.created_at.strftime("%B").capitalize %></u>, <%= Time.zone.now.year %> in Quezon City by and between:
-    </p>
+          <p class="fs-6 ms-3 me-3" style="text-align: justify;">
+            This AGREEMENT made and executed this <u><%= @gyrt_agreement.created_at.day %></u> day of <u><%= @gyrt_agreement.created_at.strftime("%B").capitalize %></u>, <%= Time.zone.now.year %> in Quezon City by and between:
+          </p>
 
-    <div class="mx-auto" style="max-width: 45rem">
-      <p class="ms-3 me-3 mb-3" style="text-align: justify;">
-        The <b>1 COOPERATIVE INSURANCE SYSTEM OF THE PHILIPPINES LIFE AND GENERAL INSURANCE (1 CISP)</b>, a cooperative insurance organized and existing under the laws of the Philippines, with business address located at No. 80 Malakas St., Barangay Pinyahan, Diliman, Quezon City represented in this act by its President, <b>MR. ROY S. MICLAT</b> and Vice President for Operations (Life Division), <b>MS. JACKELYN P. BALLENA</b> duly authorized, and hereinafter referred to as <b>"1 CISP"</b>;
-      </p>
+          <div class="mx-auto" style="max-width: 45rem">
+            <p class="ms-3 me-3 mb-3" style="text-align: justify;">
+              The <b>1 COOPERATIVE INSURANCE SYSTEM OF THE PHILIPPINES LIFE AND GENERAL INSURANCE (1 CISP)</b>, a cooperative insurance organized and existing under the laws of the Philippines, with business address located at No. 80 Malakas St., Barangay Pinyahan, Diliman, Quezon City represented in this act by its President, <b>MR. ROY S. MICLAT</b> and Vice President for Operations (Life Division), <b>MS. JACKELYN P. BALLENA</b> duly authorized, and hereinafter referred to as <b>"1 CISP"</b>;
+            </p>
 
-      <%= content_tag :p, "- and -", class: "text-center" %>
+            <%= content_tag :p, "- and -", class: "text-center" %>
 
-      <p class="ms-3 me-3 mb-3" style="text-align: justify;">
-        The <b><%= @gyrt_agreement.cooperative.name.upcase %></b>, a cooperative organized and existing under the laws of the Philippines, with office located at <u><%= @gyrt_agreement.cooperative.address %></u>, represented in this act by its <%= @gyrt_agreement.gyrt_proposal.inchage_position %>, <b><u><%= @gyrt_agreement.gyrt_proposal.incharge_name.upcase %></u></b> duly authorized, and hereinafter referred to as the <b>"COOPERATIVE"</b>;
-      </p>
+            <p class="ms-3 me-3 mb-3" style="text-align: justify;">
+              The <b><%= @gyrt_agreement.cooperative.name.upcase %></b>, a cooperative organized and existing under the laws of the Philippines, with office located at <u><%= @gyrt_agreement.cooperative.address %></u>, represented in this act by its <%= @gyrt_agreement.gyrt_proposal.inchage_position %>, <b><u><%= @gyrt_agreement.gyrt_proposal.incharge_name.upcase %></u></b> duly authorized, and hereinafter referred to as the <b>"COOPERATIVE"</b>;
+            </p>
+          </div>
+
+          <%= content_tag :p, "- WITNESSETH -", class: "text-center" %>
+
+          <br>
+          <p class="ms-3 me-3 mb-3" style="text-align: justify;">
+            <b>WHEREAS,</b> the COOPERATIVE, aside from providing services under its Articles of Cooperation and By-laws, is also engaged in the extension of mortuary services and benefits to its members;
+          </p>
+
+          <p class="ms-3 me-3 mb-3" style="text-align: justify;">
+            <b>WHEREAS,</b> the cooperative agrees to enroll its members with 1 CISP's <b>GROUP YEARLY RENEWABLE TERM (GYRT)</b> insurance plan, as stipulated in the provision of this Memorandum of Agreement; 
+          </p>
+
+          <p class="ms-3 me-3 mb-3" style="text-align: justify;">
+            <b>NOW, THEREFORE, </b> for and in consideration of the foregoing premises and of the mutual covenants and stipulations hereinafter set forth, the parties hereto agree on the following:
+          </p>
+
+          <%= content_tag :p, "A. COMMITMENT AND UNDERTAING OF COOPERATIVE", class: "fw-bold ms-3 mt-3" %>
+
+          <%= render "matrices/moa_definition_terms", matrix: @gyrt_agreement %>
+
+          <%= content_tag :p, "B. UNDERTAKING AND COMMITMENT OF 1 CISP", class: "fw-bold ms-3 mt-3" %>
+
+          <%= render "matrices/undertaking_commitment", matrix: @gyrt_agreement %>
+
+          <div class="ms-3 mt-1 me-3" style="text-align: justify;">
+            <p class="ms-3 me-3"><b>C. COMMENCEMENT DATE OF INDIVIDUAL INSURANCE. </b>The insurance coverage of a member shall commence on:
+              <ol type="a">
+                <li><u>For Renewal Members:</u> the date of policy anniversary provided that the premium is paid and the member is eligible for coverage.</li>
+                <li><u>For New Members:</u> the "date of inclusion in plan" as reported by the COOPERATIVE provided that it is duly reported to 1 CISP and the corresponding premium is paid subject to eligibility provision of this plan.</li>
+              </ol>
+            </p>
+          </div>
+
+          <div class="ms-3 mt-1 me-3" style="text-align: justify;">
+            <p class="ms-3 me-3"><b>D. AMENDMENT. </b>Any changes to the Memorandum of Agreement shall be agreed upon mutually and formally by the parties hereto.</p>
+          </div>
+
+          <div class="ms-3 mt-1 me-3" style="text-align: justify;">
+            <p class="ms-3 me-3"><b>E. EFFECTIVITY. </b>This agreement shall take effect upon the signing of this Memorandum of Agreement. This Memorandum of Agreement shall remain in force unless amended, modified, revoked or terminated by either party upon written notice to the other party thirty (30) days before the effective date of termination and based on valid and legal grounds.</p>
+          </div>
+
+          <div class="ms-3 mt-1 me-3" style="text-align: justify;">
+            <p class="ms-3 me-3"><b>F. ENTIRE AGREEMENT. </b>Both parties acknowledge that his Agreement constitutes the entire agreement between them and shall completely supersedes all other prior understandings, previous communications, contracts and agreements, either oral or written, between the parties relating to the same subject matter.</p>
+          </div>
+
+          <div class="ms-3 mt-1 me-3" style="text-align: justify;">
+            <p class="ms-3 me-3"><b>G. SEVERABILITY. </b>If any term or condition of this Agreement is declared contrary to law, the other terms and conditions hereof shall not be affected and shall remain fully vaid, subsisting and enforceable. This Agreement effectively supersedes and replaces all other arrangements, negotiations, discussions, contracts and all other agreements between parties.</p>
+          </div>
+
+          <div class="ms-3 mt-1 me-3" style="text-align: justify;">
+            <p class="ms-3 me-3"><b>H. EFFECTS OF TERMINATION OF AGREEMENT. </b>The revocation, cancellation or termination of this Agreement shall not, in anyway, prejudice, diminish or abate any cause of action already accruing to the parties prior to, or at the time of the effectivity of the revocation, cancellation, or termination. Such revocation or termination shall not, in any way, prejudice, diminish or cancel the liability of the COOPERATIVE to remit to 1 CISP hte premium payment already accruing at the time of such revocation, nor shall it diminish, cancel or abrogate the liability of 1 CISP to pay insurance benefits of the members made before or at the time of such revocation or termination.</p>
+          </div>
+
+          <div class="ms-3 mt-1 me-3" style="text-align: justify;">
+            <p class="ms-3 me-3"><b>IN WITNESSS WHEREOF, </b>the parties hereto have set their hands on the date and place above-stated.</p>
+          </div>
+          <br />
+
+          <div class="ms-3 mt-3 me-3" style="text-align: justify;">
+            <div class="row">
+              <div class="col-5">
+                <%= content_tag :h3, "1 COOPERATIVE INSURANCE SYSTEM OF THE PHILIPPINES LIFE AND GENERAL INSURANCE", class: "fw-bold" %>
+              </div>
+              <div class="col-1"></div>
+              <div class="col-5">
+                <%= content_tag :h3, @gyrt_agreement.cooperative.name.upcase, class: "fw-bold" %>
+              </div>
+            </div>
+
+            <div class="row mt-2">
+              <pre style="font-size: 20px;font-face: Arial;">By:                             By:
+              </pre>
+            </div>
+
+            
+            
+          </div>
+          <div class="row mt-2 ms-2">
+            <div class="col-6 me-5">
+              <%= content_tag :h3, "ROY S. MICLAT", class: "fw-bold" %>
+              <%= content_tag :h3, "President" %>
+              <br>
+              <br>
+              <%= content_tag :h3, "JACKELYN P. BALLENA", class: "fw-bold" %>
+              <%= content_tag :h3, "VP for Operations(Life Division)" %>
+            </div>
+            <div class="col-1 me-1"></div>
+            <div class="col-6 ms-3">
+              <%= content_tag :h3, @gyrt_agreement.gyrt_proposal.incharge_name.upcase, class: "fw-bold" %>
+              <%= content_tag :h3, @gyrt_agreement.gyrt_proposal.inchage_position %>
+            </div>
+          </div>
+
+          <div class="ms-3 mt-3 me-3" style="text-align: justify;">
+            <div class="text-center">
+              <%= content_tag :span, "Signed in the presence of" %>
+            </div>
+          </div>
+
+          <div class="row mt-2 ms-2">
+            <div class="col-12 me-5">
+              <%= content_tag :span, "_______________________________" %>
+              <%= content_tag :h3, "Name of Marketing/Sales Agent" %>
+            </div>
+          </div>
+
+           <div class="ms-3 mt-5 me-3" style="text-align: justify;">
+            <div class="text-center">
+              <%= content_tag :h2, "A C K N O W L E D G E M E N T", class: "fw-bold" %>
+            </div>
+            <%= content_tag :h5, "REPUBLIC OF THE PHILIPPINES )" %>
+            <%= content_tag :h5, "___________,________  _______       )S.S" %>
+          </div>
+
+          <div class="mx-auto" style="max-width: 45rem">
+            <p class="ms-3 me-3 mb-3" style="text-align: justify;">
+              BEFORE ME, this ______________ day of _______________ <%= DateTime.now.year %> personally appeared the following:
+            </p>
+
+            <div class="text-center">
+              <table class="table">
+                <thead>
+                  <th>NAME</th>
+                  <th>PROOF OF IDENTIFICATION</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><h5>ROY S. MICLAT</h5></td>
+                    <td>SSS # 03-9322375-6</td>
+                  </tr>
+                  <tr>
+                    <td>JACKELYN P. BALLENA</td>
+                    <td>SSS # 34-0689824-0</td>
+                  </tr>
+                  <tr>
+                    <td><%= @gyrt_agreement.gyrt_proposal.incharge_name.upcase %></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="ms-3 me-3 mb-3" style="text-align: justify;">
+              Known to me and to me known to be the same persons who executed the foregoing instrument and they acknowledge to me that the same is their free and voluntary act and deed as well as that of the entity they respectively represent.
+            </p>
+            <br>
+            <p class="ms-3 me-3 mb-3" style="text-align: justify;">
+              The said instrument referes to the Memorandum of Agreement consisting of ____() of pages including this page wherein acknowledgement is written, signed by the parties and witnesses on each page and every page thereof.
+            </p>
+            <p class="ms-5 me-3 mb-3" style="text-align: justify;">
+              WITHNESS MY HAND AND SEAL on the date and at the place first above-written.
+            </p>
+            <br>
+            <br>
+            <p class="me-5 mb-5 text-end">
+              NOTARY PUBLIC
+            </p>
+            <p class="ms-3 me-3 mb-3" style="text-align: justify;">
+              Doc. No.: ________________
+            </p>
+            <p class="ms-3 me-3 mb-3" style="text-align: justify;">
+              Page No.: ________________
+            </p>
+            <p class="ms-3 me-3 mb-3" style="text-align: justify;">
+              Book No.: ________________
+            </p>
+            <p class="ms-3 me-3 mb-3" style="text-align: justify;">
+              Series of <%= DateTime.now.year %>
+            </p>
+
+          </div>
+
+
+        </div>
+
+
+
+      </div>
+      <%#= yield %>
     </div>
-
-    <%= content_tag :p, "- WITNESSETH -", class: "text-center" %>
-
-    <br>
-    <p class="ms-3 me-3 mb-3" style="text-align: justify;">
-      <b>WHEREAS,</b> the COOPERATIVE, aside from providing services under its Articles of Cooperation and By-laws, is also engaged in the extension of mortuary services and benefits to its members;
-    </p>
-
-    <p class="ms-3 me-3 mb-3" style="text-align: justify;">
-      <b>WHEREAS,</b> the cooperative agrees to enroll its members with 1 CISP's <b>GROUP YEARLY RENEWABLE TERM (GYRT)</b> insurance plan, as stipulated in the provision of this Memorandum of Agreement; 
-    </p>
-
-    <p class="ms-3 me-3 mb-3" style="text-align: justify;">
-      <b>NOW, THEREFORE, </b> for and in consideration of the foregoing premises and of the mutual covenants and stipulations hereinafter set forth, the parties hereto agree on the following:
-    </p>
-
-    <%= content_tag :p, "A. COMMITMENT AND UNDERTAING OF COOPERATIVE", class: "fw-bold ms-3 mt-3" %>
-
-    <%= render "matrices/moa_definition_terms", matrix: @gyrt_agreement %>
-
-    <%= content_tag :p, "B. UNDERTAKING AND COMMITMENT OF 1 CISP", class: "fw-bold ms-3 mt-3" %>
-
-    <%= render "matrices/undertaking_commitment", matrix: @gyrt_agreement %>
-
-    <div class="ms-3 mt-1 me-3" style="text-align: justify;">
-      <p class="ms-3 me-3"><b>C. COMMENCEMENT DATE OF INDIVIDUAL INSURANCE. </b>The insurance coverage of a member shall commence on:
-        <ol type="a">
-          <li><u>For Renewal Members:</u> the date of policy anniversary provided that the premium is paid and the member is eligible for coverage.</li>
-          <li><u>For New Members:</u> the "date of inclusion in plan" as reported by the COOPERATIVE provided that it is duly reported to 1 CISP and the corresponding premium is paid subject to eligibility provision of this plan.</li>
-        </ol>
-      </p>
-    </div>
-
-    <div class="ms-3 mt-1 me-3" style="text-align: justify;">
-      <p class="ms-3 me-3"><b>D. AMENDMENT. </b>Any changes to the Memorandum of Agreement shall be agreed upon mutually and formally by the parties hereto.</p>
-    </div>
-
-    <div class="ms-3 mt-1 me-3" style="text-align: justify;">
-      <p class="ms-3 me-3"><b>E. EFFECTIVITY. </b>This agreement shall take effect upon the signing of this Memorandum of Agreement. This Memorandum of Agreement shall remain in force unless amended, modified, revoked or terminated by either party upon written notice to the other party thirty (30) days before the effective date of termination and based on valid and legal grounds.</p>
-    </div>
-
-    <div class="ms-3 mt-1 me-3" style="text-align: justify;">
-      <p class="ms-3 me-3"><b>F. ENTIRE AGREEMENT. </b>Both parties acknowledge that his Agreement constitutes the entire agreement between them and shall completely supersedes all other prior understandings, previous communications, contracts and agreements, either oral or written, between the parties relating to the same subject matter.</p>
-    </div>
-
-    <div class="ms-3 mt-1 me-3" style="text-align: justify;">
-      <p class="ms-3 me-3"><b>G. SEVERABILITY. </b>If any term or condition of this Agreement is declared contrary to law, the other terms and conditions hereof shall not be affected and shall remain fully vaid, subsisting and enforceable. This Agreement effectively supersedes and replaces all other arrangements, negotiations, discussions, contracts and all other agreements between parties.</p>
-    </div>
-
-    <div class="ms-3 mt-1 me-3" style="text-align: justify;">
-      <p class="ms-3 me-3"><b>H. EFFECTS OF TERMINATION OF AGREEMENT. </b>The revocation, cancellation or termination of this Agreement shall not, in anyway, prejudice, diminish or abate any cause of action already accruing to the parties prior to, or at the time of the effectivity of the revocation, cancellation, or termination. Such revocation or termination shall not, in any way, prejudice, diminish or cancel the liability of the COOPERATIVE to remit to 1 CISP hte premium payment already accruing at the time of such revocation, nor shall it diminish, cancel or abrogate the liability of 1 CISP to pay insurance benefits of the members made before or at the time of such revocation or termination.</p>
-    </div>
-
-  </div>
-
-
-
-</div>
+  </body>
+</html>

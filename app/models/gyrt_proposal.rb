@@ -48,6 +48,14 @@ class GyrtProposal < ApplicationRecord
     # self.proposal_no = "HO-#{sprintf '%05d', (GyrtProposal.maximum(:id)+1).to_s}"
   end
 
+  def self.set_validity
+    self.update(
+      validity: self.created_at + 3.months,
+      is_valid: true
+    )
+  end
+  
+
   def get_ages_for_computation(file)
     final_age = 0
     count = 0

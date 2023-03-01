@@ -10,7 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_31_031217) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_01_010920) do
+  create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", charset: "utf8mb4", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum"
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
   create_table "agents", charset: "utf8mb4", force: :cascade do |t|
     t.string "last_name"
     t.string "first_name"
@@ -213,12 +241,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_031217) do
     t.bigint "gyrt_proposal_id", null: false
     t.string "policy_anniv_type"
     t.string "min_enrollees_count"
-    t.boolean "underwriting_status"
-    t.boolean "claims_status"
-    t.boolean "vp_status"
+    t.boolean "signed_by_coop"
+    t.boolean "notarized"
+    t.boolean "ids_upload"
     t.boolean "agent_coop_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "type_of_business"
     t.index ["cooperative_id"], name: "index_gyrt_agreements_on_cooperative_id"
     t.index ["gyrt_proposal_id"], name: "index_gyrt_agreements_on_gyrt_proposal_id"
   end
@@ -291,6 +320,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_031217) do
     t.boolean "agent_coop_approval_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "policy_anniv_type"
+    t.string "type_of_business"
+    t.date "validity"
+    t.boolean "is_valid"
     t.index ["cooperative_id"], name: "index_gyrt_proposals_on_cooperative_id"
   end
 
@@ -389,6 +422,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_031217) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "geo_barangays", "geo_municipalities"
   add_foreign_key "geo_barangays", "geo_provinces"
   add_foreign_key "geo_barangays", "geo_regions"

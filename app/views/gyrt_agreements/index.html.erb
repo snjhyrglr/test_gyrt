@@ -20,10 +20,7 @@
         <th>Gyrt Proposal</th>
         <th>Policy Anniv Type</th>
         <th>Min Enrollees Count</th>
-        <th>Underwriting Status</th>
-        <th>Claims Status</th>
-        <th>Vp Status</th>
-        <th>Agent Coop Status</th>
+        <th>Status</th>
         <th></th>
 
       </tr>
@@ -54,10 +51,14 @@
         <td><%= link_to gyrt_agreement.gyrt_proposal.proposal_no, gyrt_agreement.gyrt_proposal.proposal_no, class: "link-success" %></td>
         <td><%= gyrt_agreement.policy_anniv_type %></td>
         <td><%= gyrt_agreement.min_enrollees_count %></td>
-        <td><%= gyrt_agreement.underwriting_status %></td>
-        <td><%= gyrt_agreement.claims_status %></td>
-        <td><%= gyrt_agreement.vp_status %></td>
-        <td><%= gyrt_agreement.agent_coop_status %></td>
+        <td>
+          <% ac_color = gyrt_agreement.agent_coop_status == true ? "success" : "danger" %>
+          <div class="row">
+            <%= content_tag :span, "Agent/Coop:", class: "fw-bold col-6" %>
+            <%= content_tag :span, "", class: "col-2" %>
+            <%= content_tag :span, gyrt_agreement.agent_coop_status, class: "badge text-#{ac_color} col-6" %>
+          </div>
+        </td>
     
           <td>
             <%= link_to 'View', gyrt_agreement, class: 'btn' %>

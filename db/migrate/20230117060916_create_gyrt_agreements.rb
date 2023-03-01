@@ -14,10 +14,11 @@ class CreateGyrtAgreements < ActiveRecord::Migration[7.0]
       t.references :gyrt_proposal, null: false, foreign_key: true
       t.string :policy_anniv_type
       t.string :min_enrollees_count
-      t.boolean :underwriting_status
-      t.boolean :claims_status
-      t.boolean :vp_status
+      t.boolean :signed_by_coop
+      t.boolean :notarized
+      t.boolean :ids_upload
       t.boolean :agent_coop_status
+      
 
       t.timestamps
     end

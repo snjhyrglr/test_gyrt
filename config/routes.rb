@@ -38,6 +38,12 @@ Rails.application.routes.draw do
     get :update_und, on: :member
     get :update_claims, on: :member
     get :update_agent_coop, on: :member
+    get :moa_attachments, on: :member
+    patch :upload_coop_logo, on: :member
+    patch :upload_ids, on: :member
+    patch :upload_signed_moa, on: :member
+    get :notarized_moa, on: :member
+    patch :upload_notarized_moa, on: :member
   end
   
   resources :proposal_requirements do

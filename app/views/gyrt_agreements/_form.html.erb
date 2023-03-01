@@ -5,31 +5,52 @@
 
   <div class="form-inputs mb-3 card">
     <div class="card-body">
-      <%= f.association :cooperative, input_html: { data: { controller: "ts--select" } } %>
+      <%= f.association :cooperative, input_html: { data: { controller: "ts--select" } }, disabled: true %>
       <div class="row">
-        <%= f.association :gyrt_proposal, label_method: :proposal_no, wrapper_html: { class: "col-6" } %>
-        <%= f.input :product_name, wrapper_html: { class: "col-6" } %>
+        <%= f.association :gyrt_proposal, label_method: :proposal_no, wrapper_html: { class: "col-6" }, disabled: true %>
+        <%= f.input :product_name, wrapper_html: { class: "col-6" }, disabled: true %>
       </div>
       <div class="row">
-        <%= f.input :old_min_age, wrapper_html: { class: "col-6" } %>
-        <%= f.input :old_max_age, wrapper_html: { class: "col-6" } %>
+        <%= f.input :old_min_age, wrapper_html: { class: "col-6" }, disabled: true %>
+        <%= f.input :old_max_age, wrapper_html: { class: "col-6" }, disabled: true %>
       </div>
       <div class="row">
-        <%= f.input :new_min_age, wrapper_html: { class: "col-6" } %>
-        <%= f.input :new_max_age, wrapper_html: { class: "col-6" } %>
+        <%= f.input :new_min_age, wrapper_html: { class: "col-6" }, disabled: true %>
+        <%= f.input :new_max_age, wrapper_html: { class: "col-6" }, disabled: true %>
       </div>
       <div class="row">
-        <%= f.input :prem_rate, wrapper_html: { class: "col-3" } %>
-        <%= f.input :rate_type, wrapper_html: { class: "col-3" } %>
-        <%= f.input :coop_sf, wrapper_html: { class: "col-3" } %>
-        <%= f.input :agent_sf, wrapper_html: { class: "col-3" } %>
+        <%= f.input :prem_rate, wrapper_html: { class: "col-3" }, disabled: true %>
+        <%= f.input :rate_type, wrapper_html: { class: "col-3" }, disabled: true %>
+        <%= f.input :coop_sf, wrapper_html: { class: "col-3" }, disabled: true %>
+        <%= f.input :agent_sf, wrapper_html: { class: "col-3" }, disabled: true %>
       </div>
       <div class="row">
-        <%= f.input :policy_anniv_type, label: "Policy Anniversary", collection: ["Single", "Multiple", "12 Months"], prompt: "Select Policy Anniversary Type", wrapper_html: { class: "col-6" }, input_html: { class: "form-select" } %>
-        <%= f.input :min_enrollees_count, wrapper_html: { class: "col-6" } %>
+        <%= f.input :policy_anniv_type, label: "Policy Anniversary", collection: ["Single", "Multiple", "12 Months"], prompt: "Select Policy Anniversary Type", wrapper_html: { class: "col-4" }, input_html: { class: "form-select" }, disabled: true %>
+        <%= f.input :type_of_business, label: "Type of Business", collection: ["New", "Recovered", "Transferred"], prompt: "Select Type of Business", wrapper_html: { class: "col-4" }, input_html: { class: "form-select" }, disabled: true %>
+        <%= f.input :min_enrollees_count, wrapper_html: { class: "col-4" }, disabled: true %> 
       </div>
+
+       
     </div>
   </div>
+
+<!-- Hidden Fields -->
+  <%= f.association :cooperative, as: :hidden %>
+  <%= f.association :gyrt_proposal, label_method: :proposal_no, as: :hidden %>
+  <%= f.input :product_name, as: :hidden %>
+  <%= f.input :old_min_age, as: :hidden %>
+  <%= f.input :old_max_age, as: :hidden %>
+  <%= f.input :new_min_age, as: :hidden %>
+  <%= f.input :new_max_age, as: :hidden %>
+  <%= f.input :prem_rate, as: :hidden %>
+  <%= f.input :rate_type, as: :hidden %>
+  <%= f.input :coop_sf, as: :hidden %>
+  <%= f.input :agent_sf, as: :hidden %>
+  <%= f.input :policy_anniv_type, as: :hidden %>
+  <%= f.input :min_enrollees_count, as: :hidden %> 
+  <%= f.input :type_of_business, as: :hidden %> 
+
+       
 
   <div class="form-actions text-end">
     <%= link_to "Back", gyrt_agreements_path, class: 'btn btn-secondary' %>

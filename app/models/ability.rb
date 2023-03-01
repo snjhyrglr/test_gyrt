@@ -20,7 +20,7 @@ class Ability
       end 
       if user.id == 9 # underwriting head
         can [:read, :update, :update_underwriting_status, :to_pdf], GyrtProposal
-        can [:read, :update_und], GyrtAgreement
+        can [:read, :update_und, :to_pdf, :notarized_moa, :upload_notarized_moa, :moa_attachments], GyrtAgreement
         can [:selected], GeoRegion
         can [:selected], GeoProvince
         can [:selected], GeoMunicipality
@@ -36,8 +36,10 @@ class Ability
     when Agent
       can [:read, :create], Agent, id: user
       can [:crud, :update_agent_coop_status, :to_pdf], GyrtProposal
-      can [:read, :view, :upload_member], Member
-      can [:crud, :update_agent_coop], GyrtAgreement
+      can [:read, :create, :view, :batch_form, :batch_import], Member
+      can :batch_form, Member
+      can :batch_import, Member
+      can [:crud, :update_agent_coop, :to_pdf, :moa_attachments, :upload_coop_logo, :upload_ids, :upload_signed_moa], GyrtAgreement
     end
   end
   
