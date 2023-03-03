@@ -14,6 +14,10 @@
           <%= f.input :inchage_position, wrapper_html: { class: "col-md-6" } %>
         </div>
         <div class="row">
+          <%= f.input :id_type, as: :select, label: "Type of ID", collection: ["SSS ID", "Passport", "PRC ID", "Driver's License", "UMID", "Voter's ID"], wrapper_html: { class: "col-md-6" }, input_html: { class: "form-select" } %>
+          <%= f.input :id_no, label: "ID No.", wrapper_html: { class: "col-md-6" } %>
+        </div>
+        <div class="row">
           <%= f.input :new_min_age, label: "New Member Minimum Age", 
           wrapper_html: { class: "col-md-6" } %>
           <%= f.input :new_max_age, label: "New Member Exit Age", 

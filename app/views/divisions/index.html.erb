@@ -1,0 +1,56 @@
+<%= content_tag :h1, "List of Divisions" %>
+
+
+<div class="text-end mb-3">
+  <%= link_to new_division_path, class: 'btn btn-primary' do %>
+    New Division
+  <% end %>
+</div>
+<!--
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+
+      <th>ID</th>
+        <th>Name</th>
+        <th>Shortname</th>
+        <th></th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @divisions.each do |division| %>
+        <tr>
+
+        <td><%= division.id %></td>
+        <td><%= division.name %></td>
+        <td><%= division.shortname %></td>
+    
+          <td>
+            <%= link_to 'View', division, class: 'btn' %>
+            <%= link_to 'Edit', edit_division_path(division), class: 'btn' %>
+            <%= link_to 'Delete', division, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn' %>
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  -->
+  <% @divisions.each do |div| %>
+    <div class="card mt-2">
+      <div class="card-header">
+        <%= content_tag :h4, link_to(div.name, div, class: "text-success"), class: "fw-bold" %>
+      </div>
+      <div class="card-body">
+        <ol>
+          <% div.departments.order(:name).each do |dep| %>
+            <%= content_tag :li, link_to(dep.name, dep, class: "text-secondary") %>
+          <% end %>
+        </ol>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,26 @@
+<div id="<%= dom_id department %>">
+
+  <div class="card mt-3 mb-3">
+    <div class="card-header">
+      <%= department.name %>
+    </div>
+    <div class="card-body">
+      <% if department.employees.where(is_head: true).last.nil? %>
+        <%= content_tag :span, "-", class: "lead" %>
+      <% else %>
+        <%= content_tag :span, department.employees.where(is_head: true).last.full_name, class: "lead fw-bold" %> - 
+        <%= content_tag :span, department.employees.where(is_head: true).last.position, class: "lead fw-bold" %>
+      <% end %>
+      
+      <br>
+        <ol>
+          <% department.employees.where(is_head: false).each do |emp| %>
+            <li>
+              <%= emp.full_name %> - <%= emp.position %>
+            </li>
+          <% end %>
+        </ol>
+    </div>
+  </div>
+
+</div>

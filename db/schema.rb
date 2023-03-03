@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_01_010920) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_03_030258) do
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -161,6 +161,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_01_010920) do
     t.index ["geo_region_id"], name: "index_cooperatives_on_geo_region_id"
   end
 
+  create_table "departments", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "division_id", null: false
+    t.string "name"
+    t.string "shortname"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["division_id"], name: "index_departments_on_division_id"
+  end
+
+  create_table "divisions", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.string "shortname"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "employees", charset: "utf8mb4", force: :cascade do |t|
     t.string "last_name"
     t.string "first_name"
@@ -185,6 +201,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_01_010920) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
+    t.bigint "department_id", null: false
+    t.boolean "is_head"
+    t.index ["department_id"], name: "index_employees_on_department_id"
   end
 
   create_table "geo_barangays", charset: "utf8mb4", force: :cascade do |t|
@@ -324,6 +343,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_01_010920) do
     t.string "type_of_business"
     t.date "validity"
     t.boolean "is_valid"
+    t.string "id_type"
+    t.string "id_no"
     t.index ["cooperative_id"], name: "index_gyrt_proposals_on_cooperative_id"
   end
 
@@ -424,6 +445,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_01_010920) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "departments", "divisions"
   add_foreign_key "geo_barangays", "geo_municipalities"
   add_foreign_key "geo_barangays", "geo_provinces"
   add_foreign_key "geo_barangays", "geo_regions"

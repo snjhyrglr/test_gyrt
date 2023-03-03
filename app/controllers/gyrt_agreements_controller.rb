@@ -1,5 +1,5 @@
 class GyrtAgreementsController < ApplicationController
-before_action :set_gyrt_agreement, only: %i[ show edit update destroy to_pdf update_agent_coop moa_attachments upload_coop_logo upload_ids upload_signed_moa upload_notarized_moa ]
+before_action :set_gyrt_agreement, only: %i[ show edit update destroy to_pdf update_agent_coop moa_attachments upload_coop_logo upload_ids upload_signed_moa upload_notarized_moa upload_masterlist ]
 
   # GET /gyrt_agreements or /gyrt_agreements.json
   def index
@@ -39,6 +39,19 @@ before_action :set_gyrt_agreement, only: %i[ show edit update destroy to_pdf upd
     when "masterlist" then "form_masterlist"
     end
     
+  end
+
+  def upload_masterlist
+    respond_to do |format|
+      if @gyrt_agreement.members_masterlist.attach(params[:gyrt_agreement][:members_masterlist])
+        # @gyrt_agreement.update_attribute(:notarized, true)
+        format.html { redirect_to gyrt_agreement_url(@gyrt_agreement), notice: "Master list Uploaded Successfully!" }
+      else
+        @f = "form_notarized_moa"
+        format.html { render 'moa_attachments', status: :unprocessable_entity }
+        format.turbo_stream { render 'form_update', status: :unprocessable_entity }  
+      end
+    end
   end
   
   def upload_notarized_moa
@@ -197,6 +210,6 @@ before_action :set_gyrt_agreement, only: %i[ show edit update destroy to_pdf upd
 
     # Only allow a list of trusted parameters through.
     def gyrt_agreement_params
-      params.require(:gyrt_agreement).permit(:cooperative_id, :product_name, :old_min_age, :old_max_age, :new_min_age, :new_max_age, :prem_rate, :rate_type, :coop_sf, :agent_sf, :gyrt_proposal_id, :policy_anniv_type, :min_enrollees_count, :type_of_business, :agent_coop_status, :coop_logo, :signed_moa, :notarized_moa, id_uploads: [])
+      params.require(:gyrt_agreement).permit(:cooperative_id, :product_name, :old_min_age, :old_max_age, :new_min_age, :new_max_age, :prem_rate, :rate_type, :coop_sf, :agent_sf, :gyrt_proposal_id, :policy_anniv_type, :min_enrollees_count, :type_of_business, :agent_coop_status, :coop_logo, :signed_moa, :notarized_moa, :members_masterlist, id_uploads: [])
     end
 end

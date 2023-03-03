@@ -15,11 +15,12 @@
       <th>ID</th>
         <th>Cooperative</th>
         <th>Product Name</th>
-        <th>Age Requirements</th>
-        <th>Premium</th>
+        <th>Premium Rate</th>
+        <th>Service Fee</th>
         <th>Gyrt Proposal</th>
         <th>Policy Anniv Type</th>
         <th>Min Enrollees Count</th>
+        <th>Type of Business</th>
         <th>Status</th>
         <th></th>
 
@@ -33,16 +34,11 @@
         <td><%= gyrt_agreement.id %></td>
         <td><%= gyrt_agreement.cooperative %></td>
         <td><%= gyrt_agreement.product_name %></td>
+        
         <td>
-          <%= content_tag :span, "New Members", class: "span" %>
-          <%= content_tag :span, "#{gyrt_agreement.old_min_age} to #{gyrt_agreement.old_max_age} years old", class: "badge text-dark" %>
-          <%= content_tag :span, "Old Members", class: "span" %>
-          <%= content_tag :span, "#{gyrt_agreement.new_min_age} to #{gyrt_agreement.new_max_age} years old", class: "badge text-dark" %>
+          <%= content_tag :span, to_currency(gyrt_agreement.prem_rate), class: "badge text-success" %>          
         </td>
         <td>
-          <%= content_tag :span, "Premium Rate", class: "span" %> 
-          <%= content_tag :span, to_currency(gyrt_agreement.prem_rate), class: "badge text-success" %>    
-          <%= content_tag :span, "Service Fee", class: "span" %> 
           <%= content_tag :span, "Coop: ", class: "badge text-dark" %>
           <%= content_tag :span, to_percent(gyrt_agreement.coop_sf * 100, 0), class: "badge text-success" %>
           <%= content_tag :span, "Agent: ", class: "badge text-dark" %>
@@ -51,6 +47,7 @@
         <td><%= link_to gyrt_agreement.gyrt_proposal.proposal_no, gyrt_agreement.gyrt_proposal.proposal_no, class: "link-success" %></td>
         <td><%= gyrt_agreement.policy_anniv_type %></td>
         <td><%= gyrt_agreement.min_enrollees_count %></td>
+        <td><%= gyrt_agreement.type_of_business %></td>
         <td>
           <% ac_color = gyrt_agreement.agent_coop_status == true ? "success" : "danger" %>
           <div class="row">

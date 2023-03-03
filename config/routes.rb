@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :departments
+  resources :divisions
   resources :urd_requirements
   resources :claim_requirements
   devise_for :agents, path: 'agents'
@@ -42,6 +44,7 @@ Rails.application.routes.draw do
     patch :upload_coop_logo, on: :member
     patch :upload_ids, on: :member
     patch :upload_signed_moa, on: :member
+    patch :upload_masterlist, on: :member
     get :notarized_moa, on: :member
     patch :upload_notarized_moa, on: :member
   end

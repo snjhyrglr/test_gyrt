@@ -185,7 +185,7 @@ class GyrtProposalsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def gyrt_proposal_params
       params.require(:gyrt_proposal
-      ).permit(:cooperative_id, :incharge_name, :inchage_position, :new_min_age, :new_max_age, :old_min_age, :old_max_age, :ave_age, :members_count, :file, :coop_sf, :agent_sf, :status, :type_of_business, :policy_anniversary, :validity, :is_valid,
+      ).permit(:cooperative_id, :incharge_name, :inchage_position, :id_type, :id_no, :new_min_age, :new_max_age, :old_min_age, :old_max_age, :ave_age, :members_count, :file, :coop_sf, :agent_sf, :status, :type_of_business, :policy_anniversary, :validity, :is_valid,
         gyrt_proposal_benefits_attributes: [
           :id, :gyrt_proposal_id, :benefit_id, :sum_insured, :base_prem, :_destroy
         ]

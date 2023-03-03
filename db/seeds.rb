@@ -165,25 +165,40 @@
 # end
 
 # Employees
-# spreadsheet = Roo::Spreadsheet.open("./db/uploads/EMPLOYEE-MASTERLIST.xlsx")
-# (2..spreadsheet.last_row).each do |emp|
-#   user_name = (spreadsheet.cell(emp, "C")[0] + spreadsheet.cell(emp, "D")[0] + spreadsheet.cell(emp, "B")).downcase.gsub(/\s+/, "")
-#   employee = Employee.find_or_initialize_by(username: user_name)
-#   employee.last_name = spreadsheet.cell(emp, "B")
-#   employee.first_name = spreadsheet.cell(emp, "C")
-#   employee.middle_name = spreadsheet.cell(emp, "D")
-#   employee.suffix = ""
-#   employee.code = spreadsheet.cell(emp, "A")
-#   employee.position = spreadsheet.cell(emp, "G")
-#   employee.password = employee.username
-#   puts "#{employee.username} - DONE!" if employee.save!
-# end
+spreadsheet = Roo::Spreadsheet.open("./db/uploads/EMPLOYEE-MASTERLIST.xlsx")
+(2..spreadsheet.last_row).each do |emp|
+  user_name = (spreadsheet.cell(emp, "C")[0] + spreadsheet.cell(emp, "D")[0] + spreadsheet.cell(emp, "B")).downcase.gsub(/\s+/, "")
+
+  div = Division.find_or_initialize_by(name: spreadsheet.cell(emp, "E"))
+  div.shortname = "-"
+  puts "#{div.name} - Done!" if div.save! 
+
+  dep = Department.find_or_initialize_by(name: spreadsheet.cell(emp, "F"))
+  dep.division_id = div.id
+  dep.shortname = "-"
+  puts "#{dep.name} - Done!" if dep.save! 
+
+  employee = Employee.find_or_initialize_by(username: user_name)
+  employee.department_id = dep.id
+  employee.last_name = spreadsheet.cell(emp, "B")
+  employee.first_name = spreadsheet.cell(emp, "C")
+  employee.middle_name = spreadsheet.cell(emp, "D")
+  employee.suffix = ""
+  employee.code = spreadsheet.cell(emp, "A")
+  employee.position = spreadsheet.cell(emp, "G")
+  employee.password = employee.username
+  employee.is_head = case spreadsheet.cell(emp, "H")
+    when 1 then true
+    else false
+  end
+  puts "#{employee.username} - #{employee.is_head} DONE!" if employee.save!
+end
 
 # Claim Requirements
-spreadsheet = Roo::Spreadsheet.open("./db/uploads/claims requirements.xlsx")
-(2..spreadsheet.last_row).each do |row|
-  req = ClaimRequirement.find_or_initialize_by(requirement: spreadsheet.cell(row, "A"))
-  req.description = spreadsheet.cell(row, "B")
-  req.requirement_type = spreadsheet.cell(row, "C")
-  puts "#{req.requirement} - Done!" if req.save!
-end
+# spreadsheet = Roo::Spreadsheet.open("./db/uploads/claims requirements.xlsx")
+# (2..spreadsheet.last_row).each do |row|
+#   req = ClaimRequirement.find_or_initialize_by(requirement: spreadsheet.cell(row, "A"))
+#   req.description = spreadsheet.cell(row, "B")
+#   req.requirement_type = spreadsheet.cell(row, "C")
+#   puts "#{req.requirement} - Done!" if req.save!
+# end
